@@ -1,11 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5a20owxyt7xw"]
+[gd_scene load_steps=7 format=3 uid="uid://b5a20owxyt7xw"]
 
 [ext_resource type="Texture2D" uid="uid://cplm0vb06pbdj" path="res://icon.svg" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://dqbvkgds11omj" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://cbiigovafycyr" path="res://scenes/components/input_component.tscn" id="3_dqkch"]
+[ext_resource type="PackedScene" uid="uid://baclhg3vo55mk" path="res://scenes/components/movement_component.tscn" id="4_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://bh7mog2tsxcqk" path="res://scenes/components/animation_component.tscn" id="5_qlg0r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
 size = Vector2(120, 119)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "movement_component")]
+script = ExtResource("1_g2els")
+input_component = NodePath("InputComponent")
+movement_component = NodePath("MovementComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_3vyb7")
@@ -13,3 +20,9 @@ texture = ExtResource("1_3vyb7")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_g2els")
+
+[node name="InputComponent" parent="." instance=ExtResource("3_dqkch")]
+
+[node name="MovementComponent" parent="." instance=ExtResource("4_qlg0r")]
+
+[node name="AnimationComponent" parent="." instance=ExtResource("5_qlg0r")]
