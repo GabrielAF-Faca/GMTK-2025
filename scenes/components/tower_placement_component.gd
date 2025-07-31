@@ -4,8 +4,8 @@ extends Node
 
 @export_group("Throw Settings")
 # Novas variáveis para controlar a força do arremesso
-@export var min_throw_force: float = 15.0
-@export var max_throw_force: float = 85.0
+@export var min_throw_force: float = 5.0
+@export var max_throw_force: float = 100.0
 @export var charge_speed: float = 250.0 # Pontos de força por segundo
 
 # Referência para a torre que o jogador está segurando
@@ -50,6 +50,8 @@ func _ready():
 	owner_player.add_child(trajectory_preview)
 	trajectory_preview.hide()
 
+var force_increasing = true
+
 func _process(delta: float):
 	if not is_instance_valid(owner_player):
 		return
@@ -59,11 +61,19 @@ func _process(delta: float):
 		# Inicia o carregamento
 		if input_component.interact_just_pressed and not is_charging:
 			is_charging = true
+			force_increasing = true
 			current_throw_force = min_throw_force
 		
 		# Enquanto carrega, aumenta a força e atualiza a pré-visualização
 		if is_charging and input_component.interact_pressed:
-			current_throw_force = min(current_throw_force + charge_speed * delta, max_throw_force)
+			if force_increasing:
+				current_throw_force = min(current_throw_force + charge_speed * delta, max_throw_force)
+				if ((current_throw_force + charge_speed * delta) > max_throw_force):
+					force_increasing = false
+			else:
+				current_throw_force = max(min_throw_force, min(current_throw_force - charge_speed * delta, max_throw_force))
+				if ((current_throw_force - charge_speed * delta) < min_throw_force):
+					force_increasing = true
 			update_trajectory_preview()
 			trajectory_preview.show()
 			
