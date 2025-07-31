@@ -43,5 +43,5 @@ func handle_roll_animation(move_direction: Vector2, dodge_duration: float) -> vo
 
 func add_ghost(body: CharacterBody2D, direction: Vector2) -> void:
 	var ghost = ghost_node.instantiate()
-	ghost.set_property(body.position, sprite.scale, direction)
+	ghost.set_property(body.position, sprite.scale, direction, sprite.rotation)
 	get_tree().current_scene.add_child(ghost)

@@ -5,10 +5,11 @@ var direction = Vector2(1,0)
 func _ready():
 	ghosting()
 	
-func set_property(tx_pos, tx_scale, d):
+func set_property(tx_pos, tx_scale, d, rot):
 	position = tx_pos
 	scale = tx_scale
 	direction = d
+	rotation = rot
 
 func ghosting():
 	flip_h = false if direction.x > 0 else true
