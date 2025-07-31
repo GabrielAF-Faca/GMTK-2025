@@ -1,5 +1,6 @@
 extends Node
 
+
 @export var menu_scene: PackedScene
 
 # Referencia a cena que está atualmente na tela
@@ -20,3 +21,4 @@ func change_scene(scene_to_load: PackedScene):
 		current_scene.change_scene_requested.connect(change_scene)
 	# Adiciona nova cena como filha do nó Main
 	add_child(current_scene)
+
