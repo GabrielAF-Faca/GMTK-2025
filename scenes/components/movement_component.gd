@@ -6,7 +6,9 @@ extends Node
 @export var accel_speed: float = 6.0
 @export var decel_speed: float = 8.0
 
-func handle_movement(body: CharacterBody2D, direction: Vector2, delta: float) -> void:
+
+
+func handle_movement(body: CharacterBody2D, direction: Vector2) -> void:
 	
 	var velocity_change_speed: float = accel_speed if direction != Vector2.ZERO else decel_speed
 	
