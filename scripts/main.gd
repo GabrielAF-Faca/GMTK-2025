@@ -1,6 +1,5 @@
 extends Node
 
-
 @export var menu_scene: PackedScene
 
 # Referencia a cena que está atualmente na tela

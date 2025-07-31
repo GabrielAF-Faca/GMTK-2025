@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwkv050su2y3s"]
+[gd_scene load_steps=3 format=3 uid="uid://dwkv050su2y3s"]
 
 [ext_resource type="FontFile" uid="uid://irja01mhmrby" path="res://assets/fonts/m6x11.ttf" id="1_0bpdh"]
-[ext_resource type="Script" uid="uid://dq6but4drilv" path="res://scenes/UI/credits.gd" id="1_228wp"]
-[ext_resource type="PackedScene" uid="uid://bar5lb2dyepe0" path="res://scenes/UI/main_menu.tscn" id="2_21wcu"]
+[ext_resource type="Script" uid="uid://drnewu42p4ii8" path="res://scenes/UI/credits.gd" id="1_228wp"]
 
 [node name="Credits" type="Control"]
 layout_mode = 3
@@ -12,7 +11,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_228wp")
-menu_scene = ExtResource("2_21wcu")
 
 [node name="Titulo" type="Label" parent="."]
 layout_mode = 1

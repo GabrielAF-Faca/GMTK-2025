@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bar5lb2dyepe0"]
+[gd_scene load_steps=5 format=3 uid="uid://bpyc5t5vlochy"]
 
 [ext_resource type="Script" uid="uid://bt53e1l3s40ks" path="res://scenes/UI/main_menu.gd" id="1_ekxnf"]
+[ext_resource type="FontFile" uid="uid://irja01mhmrby" path="res://assets/fonts/m6x11.ttf" id="1_l6cm7"]
 [ext_resource type="PackedScene" uid="uid://fgqc8cmuciq6" path="res://scenes/game.tscn" id="2_bqqt6"]
-[ext_resource type="FontFile" uid="uid://irja01mhmrby" path="res://assets/fonts/m6x11.ttf" id="3_bqqt6"]
 [ext_resource type="PackedScene" uid="uid://dwkv050su2y3s" path="res://scenes/UI/credits.tscn" id="3_tfcbk"]
 
 [node name="Main_menu" type="Control"]
@@ -18,43 +18,40 @@ credits_scene = ExtResource("3_tfcbk")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -76.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+theme_override_constants/separation = 70
 
-[node name="Start" type="Button" parent="VBoxContainer"]
+[node name="Titulo" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"FlatButton"
-theme_override_fonts/font = ExtResource("3_bqqt6")
-theme_override_font_sizes/font_size = 16
-text = "Start"
-
-[node name="Credits" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_type_variation = &"FlatButton"
-theme_override_fonts/font = ExtResource("3_bqqt6")
-theme_override_font_sizes/font_size = 16
-text = "Credits
-"
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 10.0
-offset_bottom = 38.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("3_bqqt6")
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("1_l6cm7")
 theme_override_font_sizes/font_size = 32
 text = "GMTK Game Jam 2025"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Start" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"FlatButton"
+theme_override_fonts/font = ExtResource("1_l6cm7")
+text = "Start"
+
+[node name="Credits" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"FlatButton"
+theme_override_fonts/font = ExtResource("1_l6cm7")
+text = "Credits"
+
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]

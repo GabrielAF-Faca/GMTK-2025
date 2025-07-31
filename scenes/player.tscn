@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bh7mog2tsxcqk" path="res://scenes/components/animation_component.tscn" id="5_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://cowxes6er0c03" path="res://scenes/components/roll_component.tscn" id="6_tuyoq"]
 
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
 atlas = ExtResource("2_tuyoq")
 region = Rect2(0, 0, 32, 32)
