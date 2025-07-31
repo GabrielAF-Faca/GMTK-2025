@@ -9,20 +9,26 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
 size = Vector2(120, 119)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "movement_component")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "movement_component", "animation_component")]
 script = ExtResource("1_g2els")
 input_component = NodePath("InputComponent")
 movement_component = NodePath("MovementComponent")
+animation_component = NodePath("AnimationComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(0.240001, 0.240001)
 texture = ExtResource("1_3vyb7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
+scale = Vector2(0.240001, 0.240001)
 shape = SubResource("RectangleShape2D_g2els")
 
 [node name="InputComponent" parent="." instance=ExtResource("3_dqkch")]
 
 [node name="MovementComponent" parent="." instance=ExtResource("4_qlg0r")]
+accel_speed = 10.0
+decel_speed = 9.0
 
 [node name="AnimationComponent" parent="." instance=ExtResource("5_qlg0r")]
