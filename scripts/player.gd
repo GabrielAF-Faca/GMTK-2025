@@ -7,12 +7,16 @@ extends CharacterBody2D
 @export var roll_component: RollComponent
 
 @onready var roll_timer: Timer = $RollTimer
+@onready var ghost_timer: Timer = $GhostTimer
+
 var can_roll = true
 
 func _physics_process(delta: float) -> void:
 	
 	if roll_component.rolling:
 		roll_component.handle_roll_movement(self, delta)
+		if ghost_timer.is_stopped():
+			ghost_timer.start()
 	else:
 		if input_component.roll and can_roll:
 			can_roll = false
@@ -27,3 +31,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_roll_timer_timeout() -> void:
 	can_roll = true
+
+func _on_ghost_timer_timeout() -> void:
+	animation_component.add_ghost(self, input_component.direction)
