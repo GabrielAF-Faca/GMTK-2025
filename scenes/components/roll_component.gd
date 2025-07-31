@@ -10,7 +10,7 @@ var dodge_roll_timer: float = 0.0
 
 var rolling = false
 
-func handle_roll_movement(body: CharacterBody2D, direction: Vector2, delta: float) -> void:
+func handle_roll_movement(body: CharacterBody2D, delta: float) -> void:
 	var elapsed_percent = 1.0 - (dodge_roll_timer/dodge_duration)
 	var current_speed = lerp(dodge_speed, dodge_speed*0.5, elapsed_percent)
 	
@@ -27,5 +27,3 @@ func _dodge_roll(direction: Vector2) -> void:
 		dodge_roll_dir = direction
 		dodge_roll_timer = dodge_duration
 		rolling = true
-		
-	
