@@ -220,7 +220,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
-size = Vector2(120, 119)
+size = Vector2(37.4998, 20.8332)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tuyoq"]
 radius = 22.0
@@ -243,7 +243,7 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
+position = Vector2(-0.5, 4.5)
 scale = Vector2(0.240001, 0.240001)
 shape = SubResource("RectangleShape2D_g2els")
 
@@ -251,7 +251,7 @@ shape = SubResource("RectangleShape2D_g2els")
 
 [node name="MovementComponent" parent="." instance=ExtResource("4_qlg0r")]
 accel_speed = 10.0
-decel_speed = 9.0
+decel_speed = 10.0
 
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "animation_player") instance=ExtResource("5_qlg0r")]
 sprite = NodePath("../Sprite2D")
