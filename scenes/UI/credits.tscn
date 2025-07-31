@@ -1,0 +1,95 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwkv050su2y3s"]
+
+[ext_resource type="FontFile" uid="uid://irja01mhmrby" path="res://assets/fonts/m6x11.ttf" id="1_0bpdh"]
+[ext_resource type="Script" uid="uid://dq6but4drilv" path="res://scenes/UI/credits.gd" id="1_228wp"]
+[ext_resource type="PackedScene" uid="uid://bar5lb2dyepe0" path="res://scenes/UI/main_menu.tscn" id="2_21wcu"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_228wp")
+menu_scene = ExtResource("2_21wcu")
+
+[node name="Titulo" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 10.0
+offset_bottom = 38.0
+grow_horizontal = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("1_0bpdh")
+theme_override_font_sizes/font_size = 32
+text = "Credits"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -133.0
+offset_right = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 45
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0bpdh")
+theme_override_font_sizes/font_size = 16
+text = "Programming and Art"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0bpdh")
+theme_override_font_sizes/font_size = 16
+text = "Alisson Lamarque
+Gabriel Azenha Fachim
+Joao Pedro Righi"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0bpdh")
+text = "Music and SFX"
+
+[node name="Label4" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0bpdh")
+theme_override_font_sizes/font_size = 16
+text = "Erick"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -18.0
+offset_top = -30.0
+offset_right = 18.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"FlatButton"
+theme_override_fonts/font = ExtResource("1_0bpdh")
+theme_override_font_sizes/font_size = 16
+text = "Back"
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
