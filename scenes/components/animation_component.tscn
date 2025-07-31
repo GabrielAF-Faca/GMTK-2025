@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bh7mog2tsxcqk"]
+[gd_scene load_steps=3 format=3 uid="uid://bh7mog2tsxcqk"]
 
 [ext_resource type="Script" uid="uid://8fn5shi4rluu" path="res://scenes/components/animation_component.gd" id="1_kbqrl"]
+[ext_resource type="PackedScene" uid="uid://bykj5vhjrhmnk" path="res://scenes/ghost.tscn" id="2_6an6w"]
 
 [node name="AnimationComponent" type="Node"]
 script = ExtResource("1_kbqrl")
+ghost_node = ExtResource("2_6an6w")

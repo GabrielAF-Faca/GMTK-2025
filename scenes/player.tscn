@@ -192,7 +192,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(1, 3.6),
 "update": 0,
 "values": [0.0, -6.28319]
 }
@@ -207,7 +207,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(1, 3.6),
 "update": 0,
 "values": [0.0, 6.28319]
 }
@@ -255,10 +255,15 @@ sprite = NodePath("../Sprite2D")
 animation_player = NodePath("../Sprite2D/AnimationPlayer")
 
 [node name="RollComponent" parent="." instance=ExtResource("6_tuyoq")]
-dodge_speed = 200.0
+dodge_speed = 230.0
 
 [node name="RollTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
+[node name="GhostTimer" type="Timer" parent="."]
+wait_time = 0.08
+one_shot = true
+
 [connection signal="timeout" from="RollTimer" to="." method="_on_roll_timer_timeout"]
+[connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
