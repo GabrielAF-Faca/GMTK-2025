@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://etwpscidi1ae"]
+
+[ext_resource type="Texture2D" uid="uid://cplm0vb06pbdj" path="res://icon.svg" id="1_mkf8s"]
+
+[node name="Bullet" type="Node2D"]
+scale = Vector2(0.12, 0.12)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.294118, 1, 0.164706, 1)
+texture = ExtResource("1_mkf8s")
