@@ -4,8 +4,8 @@ extends Node
 
 @export_group("Throw Settings")
 # Novas variáveis para controlar a força do arremesso
-@export var min_throw_force: float = 75.0
-@export var max_throw_force: float = 350.0
+@export var min_throw_force: float = 15.0
+@export var max_throw_force: float = 85.0
 @export var charge_speed: float = 250.0 # Pontos de força por segundo
 
 # Referência para a torre que o jogador está segurando
