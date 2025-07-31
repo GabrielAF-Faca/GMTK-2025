@@ -43,7 +43,7 @@ animations = [{
 }]
 
 [node name="Ghost" type="AnimatedSprite2D"]
-modulate = Color(1, 1, 1, 0.611765)
+modulate = Color(1, 1, 1, 0.486275)
 sprite_frames = SubResource("SpriteFrames_lv6vd")
 animation = &"side"
 script = ExtResource("1_t76o2")
