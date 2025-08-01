@@ -16,7 +16,7 @@ func enter():
 	print(host.name, " entrando no estado Patrol.")
 	# Pega o nó do caminho e carrega as posições dos pontos.
 	var path_node = get_node_or_null(path_node_path)
-	# Em caso de erro em encontrar os pontos toca a animação idle
+	# Em caso de erro em encontrar o nó do caminho, transiciona para o estado Idle
 	if not path_node:
 		print("PATROL STATE ERROR: O nó do caminho não foi encontrado! Verifique o NodePath.")
 		state_machine.change_state("Idle") 
