@@ -79,3 +79,10 @@ func destroy_path():
 		path_manager_instance.queue_free()
 		path_manager_instance = null
 		bullet_instance = null
+		
+
+func activate_bullet():
+	# Verifica se a instância da bullet existe no jogo
+	if is_instance_valid(bullet_instance):
+		# Chama a função pública 'activate' no script da bullet
+		bullet_instance.activate()
