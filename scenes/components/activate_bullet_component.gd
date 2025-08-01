@@ -42,7 +42,7 @@ func _on_animation_finished(anim_name):
 			can_fire = false
 			cooldown_timer.start(cooldown_time)
 
-# --- NOVA FUNÇÃO ---
+# --- NEW FUNCTION ---
 # Cancela o carregamento do tiro
 func cancel_charge():
 	is_charging = false
