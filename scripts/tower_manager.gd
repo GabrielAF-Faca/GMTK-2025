@@ -62,7 +62,7 @@ func create_or_update_path():
 		# --- IMPORTANT CHANGE ---
 		# --- IMPORTANT CHANGE ---
 		# Forces the bullet to start in Cooldown state
-		bullet_instance.change_state(bullet_instance.State.COOLDOWN)
+		bullet_instance.change_state(bullet_instance.Bullet_State.COOLDOWN)
 		
 		path_follow_node.loop = true
 		

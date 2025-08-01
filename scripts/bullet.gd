@@ -8,10 +8,10 @@ extends Node2D
 @export var cooldown_duration: float = 3.0 # Duração do estado "Desativada" (em segundos)
 
 # Define os 3 estados possíveis da bullet usando um enum
-enum State { ARMABLE, ARMED, COOLDOWN }
+enum Bullet_State { ARMABLE, ARMED, COOLDOWN }
 
 # Guarda o estado atual da bullet
-var current_state: State = State.ARMABLE
+var current_state: Bullet_State = Bullet_State.ARMABLE
 
 # Referências para os nós que vamos usar
 @onready var sprite: Sprite2D = $Sprite2D
@@ -34,7 +34,7 @@ func _ready():
 	cooldown_timer.timeout.connect(_on_cooldown_timer_timeout)
 	
 	# Inicia no estado "Ativável"
-	change_state(State.ARMABLE)
+	change_state(Bullet_State.ARMABLE)
 	
 	# Conecta o sinal de colisão da hitbox (ainda não temos inimigos, mas já fica pronto)
 	# hitbox.body_entered.connect(_on_hitbox_body_entered)
@@ -42,28 +42,28 @@ func _ready():
 # Função pública que o Player irá chamar para ativar a bullet
 func activate():
 	# Só podemos ativar se a bullet estiver no estado "Ativável"
-	if current_state == State.ARMABLE:
-		change_state(State.ARMED)
+	if current_state == Bullet_State.ARMABLE:
+		change_state(Bullet_State.ARMED)
 
 # Função central para mudar de estado
-func change_state(new_state: State):
+func change_state(new_state: Bullet_State):
 	current_state = new_state
 	
 	match current_state:
-		State.ARMABLE:
+		Bullet_State.ARMABLE:
 			# No estado "Ativável", a cor é amarela e a hitbox está desativada
 			sprite.modulate = COLOR_ARMABLE
 			hitbox.monitoring = false # Desativa a detecção de colisão
 			print("Bullet está ATIVÁVEL")
 			
-		State.ARMED:
+		Bullet_State.ARMED:
 			# No estado "Ativada", a cor é vermelha, a hitbox está ativa e o timer de duração começa
 			sprite.modulate = COLOR_ARMED
 			hitbox.monitoring = true # Ativa a detecção de colisão
 			armed_timer.start()
 			print("Bullet foi ATIVADA!")
 			
-		State.COOLDOWN:
+		Bullet_State.COOLDOWN:
 			# No estado "Desativada", a cor é cinza, a hitbox está desativada e o timer de cooldown começa
 			sprite.modulate = COLOR_COOLDOWN
 			hitbox.monitoring = false
@@ -72,11 +72,11 @@ func change_state(new_state: State):
 
 # Chamado quando o tempo do estado "Ativada" acaba
 func _on_armed_timer_timeout():
-	change_state(State.COOLDOWN)
+	change_state(Bullet_State.COOLDOWN)
 
 # Chamado quando o tempo de "Cooldown" acaba
 func _on_cooldown_timer_timeout():
-	change_state(State.ARMABLE)
+	change_state(Bullet_State.ARMABLE)
 
 # Função para quando a bullet atingir algo (futuramente, um inimigo)
 func _on_hitbox_body_entered(body):
