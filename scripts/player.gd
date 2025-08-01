@@ -15,7 +15,8 @@ var can_roll = true
 func _physics_process(delta: float) -> void:
 	
 	# A hierarquia de estados do jogador: Carregar Tiro > Rolar > Mover
-	# Cada estado de alta prioridade impede a execução dos de baixa prioridade.
+	# Player state hierarchy: Charge Shot > Roll > Move
+	# Each higher-priority state prevents execution of lower-priority ones.
 
 	# 1. ESTADO: CARREGAR O TIRO (MAIOR PRIORIDADE)
 	if activate_bullet_component.is_charging:
