@@ -9,6 +9,7 @@ extends CharacterBody2D
 
 @onready var roll_timer: Timer = $RollTimer
 @onready var ghost_timer: Timer = $GhostTimer
+@onready var charge_fx: Node2D = $ChargeFX
 
 var can_roll = true
 
@@ -21,9 +22,12 @@ func _physics_process(delta: float) -> void:
 	# 1. ESTADO: CARREGAR O TIRO (MAIOR PRIORIDADE)
 	if activate_bullet_component.is_charging:
 		movement_component.handle_movement(self, Vector2.ZERO)
+		
 		move_and_slide()
 		return # Impede qualquer outra ação
-
+	else:
+		animation_component.toggle_charge_animation_sprites(false)
+	
 	# 2. ESTADO: ROLAR
 	if roll_component.rolling:
 		roll_component.handle_roll_movement(self, delta)
