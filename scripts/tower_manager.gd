@@ -10,7 +10,7 @@ var active_towers: Array[Node2D] = []
 
 # Referência para o nosso gerenciador de caminho
 var path_manager_instance: Node = null
-var bullet_instance: Bullet = null # Alterado para o tipo Bullet para ter acesso aos seus métodos
+var bullet_instance: Bullet = null # Changed to Bullet type to access its methods
 
 # Função para registrar uma torre quando ela é colocada no chão
 func register_tower(tower: Node2D):
