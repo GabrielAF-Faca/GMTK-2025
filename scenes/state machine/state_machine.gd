@@ -13,18 +13,19 @@ func _ready():
 			states[child.name] = child
 			# Informa a cada estado quem é seu gerente.
 			child.state_machine = self
+	# Aguarda o carregamento de toda a árvore da cena
+	await get_tree().process_frame
 	# Inicia a máquina de estados.
 	if initial_state:
 		current_state = initial_state
 		current_state.enter()
+	else: print("STATE MACHINE ERROR: Estado inicial não foi definido no Inspetor para ", owner.name)
 
 func _process(delta: float):
-	if current_state:
-		current_state.update(delta)
+	if current_state: current_state.update(delta)
 
 func _physics_process(delta: float):
-	if current_state:
-		current_state.physics_update(delta)
+	if current_state: current_state.physics_update(delta)
 
 # A função principal em que é feita a troca dos estados.
 func change_state(new_state_name: String):
