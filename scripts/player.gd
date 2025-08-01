@@ -9,7 +9,6 @@ extends CharacterBody2D
 
 @onready var roll_timer: Timer = $RollTimer
 @onready var ghost_timer: Timer = $GhostTimer
-@onready var charge_fx: Node2D = $ChargeFX
 
 var can_roll = true
 

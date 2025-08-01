@@ -5,7 +5,6 @@ extends Node
 @export var sprite: AnimatedSprite2D
 @export var animation_player: AnimationPlayer
 @export var shot_aura_animation: AnimatedSprite2D
-@export var shot_glow_animation: AnimatedSprite2D
 
 @export_subgroup("Ghost")
 @export var ghost_node: PackedScene
@@ -58,10 +57,8 @@ func handle_charge_shot_animation():
 	animation_player.play("charge_shot")
 	toggle_charge_animation_sprites(true)
 	shot_aura_animation.play("aura")
-	shot_glow_animation.play("brilho")
 	
 	modulate_fx_appearance(shot_aura_animation)
-	modulate_fx_appearance(shot_glow_animation)
 	
 func modulate_fx_appearance(fx: AnimatedSprite2D):
 	fx.modulate = Color(1.0, 1.0, 1.0, 0.0)
@@ -76,4 +73,3 @@ func modulate_fx_appearance(fx: AnimatedSprite2D):
 
 func toggle_charge_animation_sprites(visible: bool):
 	shot_aura_animation.visible = visible
-	#shot_glow_animation.visible = visible
