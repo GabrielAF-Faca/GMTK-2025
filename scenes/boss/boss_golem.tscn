@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://v2m8dhkui7ba" path="res://assets/boss/Golem_1_walk.png" id="6_5so45"]
 [ext_resource type="Script" uid="uid://va0sc2biwom2" path="res://scenes/state machine/state_machine.gd" id="7_3tv1c"]
 [ext_resource type="Script" uid="uid://dkkbutywlfbr" path="res://scenes/state machine/states/idle_state.gd" id="8_vadj7"]
-[ext_resource type="Script" uid="uid://dnojt8h51vit7" path="res://scenes/state machine/states/mov_cycle_state.gd" id="9_vadj7"]
+[ext_resource type="Script" uid="uid://c4ur8mtp4273a" path="res://scenes/state machine/states/patrol.gd" id="9_5so45"]
 [ext_resource type="PackedScene" uid="uid://csjnurbhxf5sx" path="res://scenes/components/boss_component.tscn" id="10_5so45"]
 [ext_resource type="PackedScene" uid="uid://cav7tphmvqqxb" path="res://scenes/components/health_component.tscn" id="11_p0p16"]
 
@@ -394,16 +394,28 @@ collision_mask = 2
 position = Vector2(-1, 17)
 shape = SubResource("CapsuleShape2D_8qj1w")
 
+[node name="PatrolPath" type="Node2D" parent="."]
+
+[node name="Point_1" type="Marker2D" parent="PatrolPath"]
+position = Vector2(1, 111)
+
+[node name="Point_2" type="Marker2D" parent="PatrolPath"]
+position = Vector2(126, -56)
+
+[node name="Point_3" type="Marker2D" parent="PatrolPath"]
+position = Vector2(-147, -51)
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("7_3tv1c")
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("8_vadj7")
-next_state_name = "Mov_Cycle"
+next_state_name = "Patrol"
 
-[node name="Mov_Cycle" type="Node" parent="StateMachine"]
-script = ExtResource("9_vadj7")
+[node name="Patrol" type="Node" parent="StateMachine"]
+script = ExtResource("9_5so45")
+path_node_path = NodePath("../../PatrolPath")
 
 [node name="BossComponent" parent="." instance=ExtResource("10_5so45")]
 
