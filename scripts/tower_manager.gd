@@ -44,7 +44,7 @@ func create_or_update_path():
 	var distance = tower1_pos.distance_to(tower2_pos)
 	var angle = tower1_pos.angle_to_point(tower2_pos)
 	
-	var control_offset = Vector2(0, distance / 1.5).rotated(angle)
+	var control_offset = Vector2(0, distance / 2.5).rotated(angle)
 	
 	var curve = Curve2D.new()
 	curve.add_point(tower1_pos, -control_offset, control_offset)
@@ -67,7 +67,7 @@ func create_or_update_path():
 		path_follow_node.loop = true
 		
 		var tween = get_tree().create_tween().set_loops()
-		tween.tween_property(path_follow_node, "progress_ratio", 1.0, 2.0).from(0.0)
+		tween.tween_property(path_follow_node, "progress_ratio", 1.0, 5.0).from(0.0)
 
 func destroy_path():
 	if is_instance_valid(path_manager_instance):
