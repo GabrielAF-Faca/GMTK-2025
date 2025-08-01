@@ -39,7 +39,7 @@ func _on_animation_finished(anim_name):
 		if is_charging:
 			fire_activator_shot()
 			is_charging = false
-			can_fire = false
+			#can_fire = false
 			cooldown_timer.start(cooldown_time)
 
 # --- NEW FUNCTION ---

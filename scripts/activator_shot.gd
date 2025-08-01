@@ -3,7 +3,7 @@ class_name ActivatorShot
 extends Area2D
 
 # Velocidade do projétil. Pode ajustar no Inspector.
-@export var speed: float = 600.0
+@export var speed: float = 300.0
 
 # O alvo que este projétil irá perseguir (a Bullet principal)
 var target: Node2D = null
