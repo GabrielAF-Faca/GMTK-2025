@@ -3,113 +3,163 @@ class_name TowerPlacementComponent
 extends Node
 
 @export_group("Throw Settings")
-# Novas variáveis para controlar a força do arremesso
-@export var min_throw_force: float = 5.0
-@export var max_throw_force: float = 100.0
-@export var charge_speed: float = 250.0 # Pontos de força por segundo
+@export var min_throw_force: float = 75.0
+@export var max_throw_force: float = 350.0
+@export var charge_speed: float = 250.0
 
-# Referência para a torre que o jogador está segurando
-var held_tower: Area2D = null
-# Referência para as torres que estão próximas ao jogador
-var nearby_towers: Array[Area2D] = []
+@export_group("Scene References")
+# Arraste sua cena Tower.tscn para este campo no Inspector do Godot
+@export var tower_scene: PackedScene
 
-# Nó que mostrará a prévia da trajetória do arremesso
+# --- Variáveis para o feedback visual ---
+@onready var held_tower_sprite: Sprite2D = $HeldTowerSprite
+
+# --- Variáveis de Estado ---
+var towers_placed_count: int = 0
+var held_tower: Tower = null
+var nearby_towers: Array[Tower] = []
+
+# --- Variáveis de Carregamento ---
 var trajectory_preview: Line2D
-
-# Variáveis de estado para o carregamento
 var is_charging: bool = false
 var current_throw_force: float = 0.0
+var force_increasing: bool = true
 
-# Referências aos outros nós e componentes
+# --- Referências de Nós ---
 var owner_player: CharacterBody2D
 var interaction_area: Area2D
 var animation_component: AnimationComponent
 var input_component: InputComponent
 
 func _ready():
-	await owner.ready
-	
-	owner_player = owner as CharacterBody2D
-	interaction_area = owner_player.get_node("InteractionArea")
-	animation_component = owner_player.get_node("AnimationComponent")
-	input_component = owner_player.get_node("InputComponent")
-
-	if not interaction_area or not animation_component or not input_component:
-		push_error("Um ou mais componentes não foram encontrados no Player.")
-		return
-
-	interaction_area.area_entered.connect(_on_interaction_area_entered)
-	interaction_area.area_exited.connect(_on_interaction_area_exited)
-	
 	trajectory_preview = Line2D.new()
 	trajectory_preview.width = 3.0
 	trajectory_preview.default_color = Color(1, 1, 1, 0.5)
 	var gradient = Gradient.new()
 	gradient.set_colors([Color.WHITE, Color(1,1,1,0)])
 	trajectory_preview.gradient = gradient
-	owner_player.add_child(trajectory_preview)
 	trajectory_preview.hide()
 
-var force_increasing = true
+	await owner.ready
+	
+	owner_player = owner as CharacterBody2D
+	interaction_area = owner_player.get_node("InteractionArea")
+	animation_component = owner_player.get_node("AnimationComponent")
+	input_component = owner_player.get_node("InputComponent")
+	
+	owner_player.add_child(trajectory_preview)
+
+	if not interaction_area or not animation_component or not input_component:
+		push_error("Um ou mais componentes não foram encontrados no Player.")
+		return
+	
+	if not held_tower_sprite:
+		push_error("O nó 'HeldTowerSprite' não foi encontrado como filho deste componente.")
+		return
+	
+	held_tower_sprite.hide()
+
+	interaction_area.area_entered.connect(_on_interaction_area_entered)
+	interaction_area.area_exited.connect(_on_interaction_area_exited)
 
 func _process(delta: float):
 	if not is_instance_valid(owner_player):
 		return
 		
-	# Lógica de input baseada em estados (pegar, carregar, atirar)
-	if held_tower:
-		# Inicia o carregamento
-		if input_component.interact_just_pressed and not is_charging:
-			is_charging = true
-			force_increasing = true
-			current_throw_force = min_throw_force
+	# Verifica em qual "modo" o jogador está
+	if towers_placed_count < 2:
+		# MODO 1: Criação das torres com arremesso
+		handle_initial_creation(delta)
+	else:
+		# MODO 2: Reposicionamento das torres existentes (sem arremesso)
+		handle_repositioning()
+
+# Lida com a criação e arremesso das duas primeiras torres
+func handle_initial_creation(delta: float):
+	if input_component.interact_just_pressed and not is_charging:
+		is_charging = true
+		current_throw_force = min_throw_force
+		force_increasing = true
+	
+	if is_charging and input_component.interact_pressed:
+		update_throw_force(delta)
+		update_trajectory_preview()
+		trajectory_preview.show()
 		
-		# Enquanto carrega, aumenta a força e atualiza a pré-visualização
-		if is_charging and input_component.interact_pressed:
-			if force_increasing:
-				current_throw_force = min(current_throw_force + charge_speed * delta, max_throw_force)
-				if ((current_throw_force + charge_speed * delta) > max_throw_force):
-					force_increasing = false
-			else:
-				current_throw_force = max(min_throw_force, min(current_throw_force - charge_speed * delta, max_throw_force))
-				if ((current_throw_force - charge_speed * delta) < min_throw_force):
-					force_increasing = true
-			update_trajectory_preview()
-			trajectory_preview.show()
-			
-		# Solta a tecla para atirar
-		if is_charging and input_component.interact_just_released:
-			is_charging = false
-			trajectory_preview.hide()
-			throw_tower()
-			
-	# Se não estiver a segurar uma torre, verifica se pode pegar uma
+	if is_charging and input_component.interact_just_released:
+		is_charging = false
+		trajectory_preview.hide()
+		create_and_throw_new_tower()
+
+# Lida com pegar e soltar as torres já existentes
+func handle_repositioning():
+	if held_tower:
+		# Se está segurando uma torre, solta ela na posição atual com um clique
+		held_tower_sprite.global_position = owner_player.global_position + Vector2(0, -30)
+		if input_component.interact_just_pressed:
+			drop_tower_at_feet()
 	elif nearby_towers.size() > 0 and input_component.interact_just_pressed:
+		# Se não está segurando e está perto de uma, pega ela
 		pickup_tower(nearby_towers[0])
 
-func pickup_tower(tower: Tower):
-	held_tower = tower
-	TowerManager.unregister_tower(tower)
-	tower.hide()
-	nearby_towers.erase(tower)
+# Lógica do "ping-pong" da força
+func update_throw_force(delta: float):
+	if force_increasing:
+		current_throw_force += charge_speed * delta
+		if current_throw_force >= max_throw_force:
+			current_throw_force = max_throw_force
+			force_increasing = false
+	else:
+		current_throw_force -= charge_speed * delta
+		if current_throw_force <= min_throw_force:
+			current_throw_force = min_throw_force
+			force_increasing = true
 
-func throw_tower():
-	if not held_tower:
+# Cria uma nova torre e a arremessa
+func create_and_throw_new_tower():
+	if not tower_scene:
+		push_error("A cena da Torre (Tower Scene) não foi definida no Inspector!")
 		return
 		
+	var new_tower = tower_scene.instantiate() as Tower
+	get_tree().current_scene.add_child(new_tower) # Adiciona à cena primeiro
+	
 	var direction = animation_component.last_dir
 	if direction == Vector2.ZERO:
 		direction = Vector2.RIGHT
 		
-	# Usa a força carregada em vez de uma distância fixa
 	var throw_position = owner_player.global_position + direction * current_throw_force
+	new_tower.global_position = throw_position
 	
-	held_tower.global_position = throw_position
-	held_tower.show()
+	# Em vez de só mostrar, chama a nova função de animação
+	new_tower.play_spawn_animation()
+	
+	TowerManager.register_tower(new_tower)
+	towers_placed_count += 1
+
+# Pega uma torre existente
+func pickup_tower(tower: Tower):
+	held_tower = tower
+	TowerManager.unregister_tower(tower)
+	tower.hide()
+	held_tower_sprite.show()
+	nearby_towers.erase(tower)
+
+# Solta a torre nos pés do jogador
+func drop_tower_at_feet():
+	if not held_tower:
+		return
+		
+	held_tower.global_position = owner_player.global_position
+	held_tower.show() # Mostra a torre para que a animação possa ser executada
+	
+	# Chama a nova função de animação
+	held_tower.play_spawn_animation()
 	
 	TowerManager.register_tower(held_tower)
 	
 	held_tower = null
+	held_tower_sprite.hide()
 
 func update_trajectory_preview():
 	var direction = animation_component.last_dir
@@ -117,7 +167,6 @@ func update_trajectory_preview():
 		direction = Vector2.RIGHT
 		
 	var start_point = Vector2.ZERO
-	# O ponto final da linha agora usa a força atual
 	var end_point = direction * current_throw_force
 	
 	trajectory_preview.clear_points()

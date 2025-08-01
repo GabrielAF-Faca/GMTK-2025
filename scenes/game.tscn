@@ -1,4 +1,6 @@
+
 [gd_scene load_steps=7 format=4 uid="uid://fgqc8cmuciq6"]
+
 
 [ext_resource type="Script" uid="uid://fr15d0u6ajgg" path="res://scripts/game.gd" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://b4lcnvmnqwgkj" path="res://assets/tiles/darkdungeon_tileset_allinone.png" id="2_lbhrr"]
@@ -563,6 +565,7 @@ metadata/_edit_lock_ = true
 [node name="Player" parent="." instance=ExtResource("2_yqjtg")]
 position = Vector2(179, 82)
 
+
 [node name="Tower" parent="." instance=ExtResource("3_lnu2h")]
 position = Vector2(165, 311)
 
@@ -572,3 +575,4 @@ position = Vector2(249, 316)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(180, 88)
 zoom = Vector2(2, 2)
+

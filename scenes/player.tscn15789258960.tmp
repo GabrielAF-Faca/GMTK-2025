@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b5a20owxyt7xw"]
+[gd_scene load_steps=33 format=3 uid="uid://b5a20owxyt7xw"]
 
 [ext_resource type="Script" uid="uid://dqbvkgds11omj" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dq3xdtec1oqsm" path="res://assets/player/prototype_character.png" id="2_tuyoq"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bh7mog2tsxcqk" path="res://scenes/components/animation_component.tscn" id="5_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://cowxes6er0c03" path="res://scenes/components/roll_component.tscn" id="6_tuyoq"]
 [ext_resource type="PackedScene" uid="uid://upmdtlxurore" path="res://scenes/components/tower_placement_component.tscn" id="7_fjrip"]
-[ext_resource type="PackedScene" uid="uid://duae4b2fbu0g0" path="res://scenes/tower.tscn" id="8_smehm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
 atlas = ExtResource("2_tuyoq")
@@ -221,7 +220,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
-size = Vector2(37.4998, 20.8332)
+size = Vector2(120, 119)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tuyoq"]
 radius = 22.0
@@ -244,7 +243,7 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 4.5)
+position = Vector2(0, 0.5)
 scale = Vector2(0.240001, 0.240001)
 shape = SubResource("RectangleShape2D_g2els")
 
@@ -252,7 +251,7 @@ shape = SubResource("RectangleShape2D_g2els")
 
 [node name="MovementComponent" parent="." instance=ExtResource("4_qlg0r")]
 accel_speed = 10.0
-decel_speed = 10.0
+decel_speed = 9.0
 
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "animation_player") instance=ExtResource("5_qlg0r")]
 sprite = NodePath("../Sprite2D")
@@ -262,7 +261,9 @@ animation_player = NodePath("../Sprite2D/AnimationPlayer")
 dodge_speed = 230.0
 
 [node name="TowerPlacementComponent" parent="." instance=ExtResource("7_fjrip")]
-tower_scene = ExtResource("8_smehm")
+min_throw_force = null
+max_throw_force = null
+charge_speed = null
 
 [node name="RollTimer" type="Timer" parent="."]
 wait_time = 0.1
