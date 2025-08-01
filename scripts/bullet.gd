@@ -36,8 +36,9 @@ func _ready():
 	# Inicia no estado "Ativável"
 	change_state(Bullet_State.ARMABLE)
 	
-	# Conecta o sinal de colisão da hitbox (ainda não temos inimigos, mas já fica pronto)
-	# hitbox.body_entered.connect(_on_hitbox_body_entered)
+	# --- CORREÇÃO ---
+	# Conecta o sinal de colisão da hitbox à função correta
+	hitbox.area_entered.connect(_on_hitbox_area_entered)
 
 # Função pública que o Player irá chamar para ativar a bullet
 func activate():
@@ -51,20 +52,17 @@ func change_state(new_state: Bullet_State):
 	
 	match current_state:
 		Bullet_State.ARMABLE:
-			# No estado "Ativável", a cor é amarela e a hitbox está desativada
 			sprite.modulate = COLOR_ARMABLE
-			hitbox.monitoring = false # Desativa a detecção de colisão
+			hitbox.monitoring = false
 			print("Bullet está ATIVÁVEL")
 			
 		Bullet_State.ARMED:
-			# No estado "Ativada", a cor é vermelha, a hitbox está ativa e o timer de duração começa
 			sprite.modulate = COLOR_ARMED
-			hitbox.monitoring = true # Ativa a detecção de colisão
+			hitbox.monitoring = true
 			armed_timer.start()
 			print("Bullet foi ATIVADA!")
 			
 		Bullet_State.COOLDOWN:
-			# No estado "Desativada", a cor é cinza, a hitbox está desativada e o timer de cooldown começa
 			sprite.modulate = COLOR_COOLDOWN
 			hitbox.monitoring = false
 			cooldown_timer.start()
@@ -78,10 +76,16 @@ func _on_armed_timer_timeout():
 func _on_cooldown_timer_timeout():
 	change_state(Bullet_State.ARMABLE)
 
-# Função para quando a bullet atingir algo (futuramente, um inimigo)
-func _on_hitbox_body_entered(body):
-	# A hitbox só está ativa no estado ARMED, então não precisamos de verificar de novo
-	print("Bullet atingiu: ", body.name)
-	# Aqui você colocaria a lógica de dano, por exemplo:
-	# if body.has_method("take_damage"):
-	#     body.take_damage(100)
+# --- CORREÇÃO ---
+# Função para quando a bullet atingir a Hurtbox do inimigo
+func _on_hitbox_area_entered(area: Area2D):
+	# A hitbox só está ativa no estado ARMED
+	
+	# Pega o nó pai da área atingida (o próprio Boss_Golem)
+	var parent_body = area.get_parent()
+	
+	# Verifica se o corpo atingido tem um BossComponent
+	if parent_body.has_node("BossComponent"):
+		var boss_component = parent_body.get_node("BossComponent") as BossComponent
+		# Chama a função no BossComponent para ele lidar com o dano
+		boss_component.handle_bullet_hit()
