@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://brhbvsksn0om3"]
+[gd_scene load_steps=61 format=3 uid="uid://brhbvsksn0om3"]
 
 [ext_resource type="Script" uid="uid://7w1nfu7i164i" path="res://scenes/boss/boss_golem.gd" id="1_i54yi"]
 [ext_resource type="Texture2D" uid="uid://cpltuq8lmxrge" path="res://assets/boss/Golem_1_attack.png" id="2_ywr6b"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://va0sc2biwom2" path="res://scenes/state machine/state_machine.gd" id="7_3tv1c"]
 [ext_resource type="Script" uid="uid://dkkbutywlfbr" path="res://scenes/state machine/states/idle_state.gd" id="8_vadj7"]
 [ext_resource type="Script" uid="uid://dnojt8h51vit7" path="res://scenes/state machine/states/mov_cycle_state.gd" id="9_vadj7"]
+[ext_resource type="PackedScene" uid="uid://csjnurbhxf5sx" path="res://scenes/components/boss_component.tscn" id="10_5so45"]
+[ext_resource type="PackedScene" uid="uid://cav7tphmvqqxb" path="res://scenes/components/health_component.tscn" id="11_p0p16"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p0p16"]
 atlas = ExtResource("2_ywr6b")
@@ -384,6 +386,14 @@ position = Vector2(19.25, 27.75)
 shape = SubResource("RectangleShape2D_sbwf3")
 disabled = true
 
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-1, 17)
+shape = SubResource("CapsuleShape2D_8qj1w")
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("7_3tv1c")
 initial_state = NodePath("Idle")
@@ -394,3 +404,7 @@ next_state_name = "Mov_Cycle"
 
 [node name="Mov_Cycle" type="Node" parent="StateMachine"]
 script = ExtResource("9_vadj7")
+
+[node name="BossComponent" parent="." instance=ExtResource("10_5so45")]
+
+[node name="HealthComponent" parent="BossComponent" instance=ExtResource("11_p0p16")]
