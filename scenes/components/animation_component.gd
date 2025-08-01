@@ -45,3 +45,10 @@ func add_ghost(body: CharacterBody2D, direction: Vector2) -> void:
 	var ghost = ghost_node.instantiate()
 	ghost.set_property(body.position, sprite.scale, direction, sprite.rotation)
 	get_tree().current_scene.add_child(ghost)
+
+func handle_charge_shot_animation():
+	# --- CORREÇÃO ---
+	# Redefine a velocidade da animação para a velocidade normal (1.0)
+	# antes de tocar a animação de carregar o tiro.
+	animation_player.speed_scale = 1.0
+	animation_player.play("charge_shot")

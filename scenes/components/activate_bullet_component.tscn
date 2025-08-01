@@ -4,3 +4,5 @@
 
 [node name="ActivateBulletComponent" type="Node"]
 script = ExtResource("1_xlbip")
+
+[node name="CooldownTimer" type="Timer" parent="."]
