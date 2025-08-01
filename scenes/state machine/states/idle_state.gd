@@ -2,7 +2,7 @@ class_name IdleState
 extends State
 
 @export var idle_time: float = 3.0 # Quanto tempo parado
-@export var next_state_name: String = "ChasePlayer" # Próximo estado
+@export var next_state_name: String = "" # Próximo estado
 
 var timer: float = 0.0
 
