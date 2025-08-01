@@ -50,9 +50,15 @@ func physics_update(_delta: float):
 	if distance_to_target < arrival_threshold:
 		# ...avança para o próximo ponto no ciclo.
 		current_waypoint_index = (current_waypoint_index + 1) % waypoints.size()
-		# NOTA: Aqui é onde a lógica do Autômato Rúnico entraria!
-		# Você poderia emitir um sinal para o chefe "ativar" a runa.
-		# Ex: host.emit_signal("rune_activated", current_waypoint_index)
+		# TODO: Implementar a lógica do Autômato Rúnico (Runic Automaton) aqui.
+		# Quando o chefe alcança um waypoint, deve ativar a runa correspondente.
+		# Possível implementação: emitir um sinal para o chefe ativar a runa, ex:
+		# host.emit_signal("rune_activated", current_waypoint_index)
+		# Detalhes:
+		# - Cada waypoint pode estar associado a uma runa específica.
+		# - A ativação pode envolver efeitos visuais, mudanças de estado, ou buffs/debuffs.
+		# - Consulte o design do Autômato Rúnico para requisitos específicos.
+		# - Veja o issue tracker para detalhes: https://example.com/issues/automato-runico
 		# Atualiza o alvo para o novo ponto.
 		target_position = waypoints[current_waypoint_index]
 	# 4. Move o chefe em direção ao alvo.
