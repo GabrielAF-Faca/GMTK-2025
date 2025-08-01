@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://028w8q2torkf"]
+
+[ext_resource type="Script" uid="uid://ilxusjgaayqb" path="res://scripts/activator_shot.gd" id="1_j05pl"]
+[ext_resource type="Texture2D" uid="uid://cplm0vb06pbdj" path="res://icon.svg" id="2_soh5w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_al4j8"]
+radius = 4.0
+
+[node name="ActivatorShot" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_j05pl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.32549, 1, 1, 1)
+self_modulate = Color(0.560784, 1, 1, 1)
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("2_soh5w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_al4j8")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
