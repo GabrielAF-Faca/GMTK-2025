@@ -9,7 +9,7 @@ var timer: float = 0.0
 func enter():
 	print(host.name, " entrando no estado Idle.")
 	host.get_node("AnimatedSprite2D").play("idle")
-	#timer = idle_time
+	timer = idle_time
 
 func exit():
 	print(host.name, " saindo do estado Idle.")

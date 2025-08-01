@@ -19,15 +19,12 @@ var timer: float
 # Chamado uma vez quando o estado é ativado.
 func enter():
 	print(host.name, " entrando no estado Mov_Cycle.")
-	
 	# Define o centro do círculo como a posição onde o chefe estava
 	# no momento em que entrou neste estado.
 	center_point = host.global_position
-	
 	# Reseta o ângulo e o timer.
 	current_angle = 0.0
 	timer = cycle_duration
-	
 	# Toca a animação de andar, se existir.
 	if host.has_node("AnimatedSprite2D"):
 		host.get_node("AnimatedSprite2D").play("walk")
