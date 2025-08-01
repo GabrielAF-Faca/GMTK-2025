@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://b5a20owxyt7xw"]
+[gd_scene load_steps=33 format=3 uid="uid://b5a20owxyt7xw"]
 
 [ext_resource type="Script" uid="uid://dqbvkgds11omj" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dq3xdtec1oqsm" path="res://assets/player/prototype_character.png" id="2_tuyoq"]
@@ -7,17 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bh7mog2tsxcqk" path="res://scenes/components/animation_component.tscn" id="5_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://cowxes6er0c03" path="res://scenes/components/roll_component.tscn" id="6_tuyoq"]
 [ext_resource type="PackedScene" uid="uid://upmdtlxurore" path="res://scenes/components/tower_placement_component.tscn" id="7_fjrip"]
-[ext_resource type="PackedScene" uid="uid://duae4b2fbu0g0" path="res://scenes/tower.tscn" id="8_smehm"]
-[ext_resource type="PackedScene" uid="uid://dc1bbwqbk7x3e" path="res://scenes/components/activate_bullet_component.tscn" id="9_ur7pv"]
-[ext_resource type="PackedScene" uid="uid://028w8q2torkf" path="res://scenes/activator_shot.tscn" id="10_y4r1p"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ke2ow"]
-atlas = ExtResource("2_tuyoq")
-region = Rect2(0, 288, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ujl30"]
-atlas = ExtResource("2_tuyoq")
-region = Rect2(32, 288, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
 atlas = ExtResource("2_tuyoq")
@@ -93,17 +82,6 @@ region = Rect2(96, 160, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ke2ow"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ke2ow")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ujl30")
-}],
-"loop": false,
-"name": &"charge_shot",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fjrip")
@@ -203,18 +181,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"charge_shot"]
-}
 
 [sub_resource type="Animation" id="Animation_smehm"]
 resource_name = "roll_left"
@@ -246,48 +212,30 @@ tracks/0/keys = {
 "values": [0.0, 6.28319]
 }
 
-[sub_resource type="Animation" id="Animation_31cv2"]
-resource_name = "charge_shot"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"charge_shot"]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_smehm"]
 _data = {
 &"RESET": SubResource("Animation_fjrip"),
-&"charge_shot": SubResource("Animation_31cv2"),
 &"roll_left": SubResource("Animation_smehm"),
 &"roll_right": SubResource("Animation_tuyoq")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
-size = Vector2(37.4998, 20.8332)
+size = Vector2(120, 119)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tuyoq"]
 radius = 22.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "movement_component", "animation_component", "roll_component", "activate_bullet_component")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "movement_component", "animation_component", "roll_component")]
 script = ExtResource("1_g2els")
 input_component = NodePath("InputComponent")
 movement_component = NodePath("MovementComponent")
 animation_component = NodePath("AnimationComponent")
 roll_component = NodePath("RollComponent")
-activate_bullet_component = NodePath("ActivateBulletComponent")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_ke2ow")
-animation = &"charge_shot"
+animation = &"run_up"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
 libraries = {
@@ -295,7 +243,7 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 4.5)
+position = Vector2(0, 0.5)
 scale = Vector2(0.240001, 0.240001)
 shape = SubResource("RectangleShape2D_g2els")
 
@@ -303,7 +251,7 @@ shape = SubResource("RectangleShape2D_g2els")
 
 [node name="MovementComponent" parent="." instance=ExtResource("4_qlg0r")]
 accel_speed = 10.0
-decel_speed = 10.0
+decel_speed = 9.0
 
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite", "animation_player") instance=ExtResource("5_qlg0r")]
 sprite = NodePath("../Sprite2D")
@@ -313,10 +261,9 @@ animation_player = NodePath("../Sprite2D/AnimationPlayer")
 dodge_speed = 230.0
 
 [node name="TowerPlacementComponent" parent="." instance=ExtResource("7_fjrip")]
-tower_scene = ExtResource("8_smehm")
-
-[node name="ActivateBulletComponent" parent="." instance=ExtResource("9_ur7pv")]
-activator_shot_scene = ExtResource("10_y4r1p")
+min_throw_force = null
+max_throw_force = null
+charge_speed = null
 
 [node name="RollTimer" type="Timer" parent="."]
 wait_time = 0.1

@@ -43,5 +43,14 @@ func handle_roll_animation(move_direction: Vector2, dodge_duration: float) -> vo
 
 func add_ghost(body: CharacterBody2D, direction: Vector2) -> void:
 	var ghost = ghost_node.instantiate()
-	ghost.set_property(body.position, sprite.scale, direction)
+	ghost.set_property(body.position, sprite.scale, direction, sprite.rotation)
 	get_tree().current_scene.add_child(ghost)
+
+func handle_charge_shot_animation():
+	# --- CORREÇÃO ---
+	# Redefine a velocidade da animação para a velocidade normal (1.0)
+	# --- CORRECTION ---
+	# Reset the animation speed to normal (1.0)
+	# before playing the charge shot animation.
+	animation_player.speed_scale = 1.0
+	animation_player.play("charge_shot")

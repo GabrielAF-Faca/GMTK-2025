@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://etwpscidi1ae"]
+
+[ext_resource type="Texture2D" uid="uid://cplm0vb06pbdj" path="res://icon.svg" id="1_mkf8s"]
+[ext_resource type="Script" uid="uid://6twpnml2tgw" path="res://scripts/bullet.gd" id="1_y25gk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mkf8s"]
+size = Vector2(133.333, 133.333)
+
+[node name="Bullet" type="Node2D"]
+scale = Vector2(0.12, 0.12)
+script = ExtResource("1_y25gk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.294118, 1, 0.164706, 1)
+texture = ExtResource("1_mkf8s")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(9.93411e-06, 1.98682e-06)
+shape = SubResource("RectangleShape2D_mkf8s")
+
+[node name="ArmedTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true

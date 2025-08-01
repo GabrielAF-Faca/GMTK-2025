@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dc1bbwqbk7x3e"]
+
+[ext_resource type="Script" uid="uid://cueikowiegax3" path="res://scenes/components/activate_bullet_component.gd" id="1_xlbip"]
+
+[node name="ActivateBulletComponent" type="Node"]
+script = ExtResource("1_xlbip")
+
+[node name="CooldownTimer" type="Timer" parent="."]
