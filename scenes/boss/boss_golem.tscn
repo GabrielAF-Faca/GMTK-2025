@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://brhbvsksn0om3"]
+[gd_scene load_steps=59 format=3 uid="uid://brhbvsksn0om3"]
 
 [ext_resource type="Script" uid="uid://7w1nfu7i164i" path="res://scenes/boss/boss_golem.gd" id="1_i54yi"]
 [ext_resource type="Texture2D" uid="uid://cpltuq8lmxrge" path="res://assets/boss/Golem_1_attack.png" id="2_ywr6b"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://bk07emv2qxnxt" path="res://assets/boss/Golem_1_hurt.png" id="4_vadj7"]
 [ext_resource type="Texture2D" uid="uid://uehx72qjptmw" path="res://assets/boss/Golem_1_idle.png" id="5_c18mn"]
 [ext_resource type="Texture2D" uid="uid://v2m8dhkui7ba" path="res://assets/boss/Golem_1_walk.png" id="6_5so45"]
+[ext_resource type="Script" uid="uid://va0sc2biwom2" path="res://scenes/state machine/state_machine.gd" id="7_3tv1c"]
+[ext_resource type="Script" uid="uid://dkkbutywlfbr" path="res://scenes/state machine/states/idle_state.gd" id="8_vadj7"]
+[ext_resource type="Script" uid="uid://dnojt8h51vit7" path="res://scenes/state machine/states/mov_cycle_state.gd" id="9_vadj7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p0p16"]
 atlas = ExtResource("2_ywr6b")
@@ -380,3 +383,14 @@ shape = SubResource("CapsuleShape2D_8qj1w")
 position = Vector2(19.25, 27.75)
 shape = SubResource("RectangleShape2D_sbwf3")
 disabled = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("7_3tv1c")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("8_vadj7")
+next_state_name = "Mov_Cycle"
+
+[node name="Mov_Cycle" type="Node" parent="StateMachine"]
+script = ExtResource("9_vadj7")
