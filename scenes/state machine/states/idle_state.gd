@@ -15,7 +15,6 @@ func exit():
 	print(host.name, " saindo do estado Idle.")
 
 func update(delta: float):
-	pass
 	timer -= delta
 	if timer <= 0:
 		# A transição é solicitada à máquina de estados.
