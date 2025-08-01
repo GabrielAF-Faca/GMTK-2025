@@ -59,7 +59,7 @@ func create_or_update_path():
 		bullet_instance = Bullet.instantiate()
 		path_follow_node.add_child(bullet_instance)
 		
-		# --- MUDANÇA IMPORTANTE ---
+		# --- IMPORTANT CHANGE ---
 		# Força a bullet a começar no estado de Cooldown
 		bullet_instance.change_state(bullet_instance.State.COOLDOWN)
 		
