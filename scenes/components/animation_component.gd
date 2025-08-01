@@ -49,6 +49,8 @@ func add_ghost(body: CharacterBody2D, direction: Vector2) -> void:
 func handle_charge_shot_animation():
 	# --- CORREÇÃO ---
 	# Redefine a velocidade da animação para a velocidade normal (1.0)
-	# antes de tocar a animação de carregar o tiro.
+	# --- CORRECTION ---
+	# Reset the animation speed to normal (1.0)
+	# before playing the charge shot animation.
 	animation_player.speed_scale = 1.0
 	animation_player.play("charge_shot")
