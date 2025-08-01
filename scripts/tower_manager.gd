@@ -75,7 +75,7 @@ func destroy_path():
 		path_manager_instance = null
 		bullet_instance = null
 
-# --- Funções que já tínhamos ---
+# --- Functions we already had ---
 func activate_bullet():
 	if is_instance_valid(bullet_instance):
 		bullet_instance.activate()
