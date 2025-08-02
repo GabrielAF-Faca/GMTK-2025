@@ -5,17 +5,16 @@ var direction = Vector2(1,0)
 func _ready():
 	ghosting()
 	
-func set_property(tx_pos, tx_scale, d, rot):
+func set_property(tx_pos, sprite, d):
 	position = tx_pos
-	scale = tx_scale
-	direction = d
-	rotation = rot
+	scale = sprite.scale
+	rotation = sprite.rotation
+	sprite_frames = sprite.sprite_frames
+	animation = sprite.animation
+	frame = sprite.frame
+	speed_scale = 0.0
 
 func ghosting():
-	flip_h = false if direction.x > 0 else true
-	
-	if direction.y != 0:
-		play("down" if direction.y > 0 else "up")
 	
 	var tween_fade = get_tree().create_tween()
 	
