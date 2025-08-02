@@ -1,18 +1,63 @@
-[gd_scene load_steps=4 format=3 uid="uid://etwpscidi1ae"]
+[gd_scene load_steps=11 format=3 uid="uid://etwpscidi1ae"]
 
-[ext_resource type="Texture2D" uid="uid://cplm0vb06pbdj" path="res://icon.svg" id="1_mkf8s"]
 [ext_resource type="Script" uid="uid://6twpnml2tgw" path="res://scripts/bullet.gd" id="1_y25gk"]
+[ext_resource type="Texture2D" uid="uid://dy6jctugtc7tj" path="res://assets/fx/bullet_cooldown.png" id="3_eoqba"]
+[ext_resource type="Texture2D" uid="uid://cmv4yaf4q8w6a" path="res://assets/fx/Projectile 17.png" id="3_l5glv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mkf8s"]
 size = Vector2(133.333, 133.333)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cfmv"]
+atlas = ExtResource("3_eoqba")
+region = Rect2(0, 0, 25, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eoqba"]
+atlas = ExtResource("3_l5glv")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qncy5"]
+atlas = ExtResource("3_l5glv")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tamys"]
+atlas = ExtResource("3_l5glv")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26lx3"]
+atlas = ExtResource("3_l5glv")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1cfmv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cfmv")
+}],
+"loop": true,
+"name": &"cooldown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eoqba")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qncy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tamys")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26lx3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
 [node name="Bullet" type="Node2D"]
 scale = Vector2(0.12, 0.12)
 script = ExtResource("1_y25gk")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.294118, 1, 0.164706, 1)
-texture = ExtResource("1_mkf8s")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
@@ -27,3 +72,9 @@ one_shot = true
 
 [node name="CooldownTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-40, 10)
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_1cfmv")
+animation = &"cooldown"

@@ -5,6 +5,12 @@ extends Area2D
 # Velocidade do projétil. Pode ajustar no Inspector.
 @export var speed: float = 300.0
 
+@export var explosion_scene: PackedScene
+
+
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
+
 # O alvo que este projétil irá perseguir (a Bullet principal)
 var target: Node2D = null
 
@@ -23,6 +29,7 @@ func _process(delta: float):
 	# A cada frame, recalcula a direção para o alvo
 	var direction = (target.global_position - global_position).normalized()
 	
+	animated_sprite_2d.rotation = get_angle_to(target.global_position)
 	# Move o projétil na nova direção
 	global_position += direction * speed * delta
 
@@ -33,6 +40,10 @@ func _on_area_entered(area: Area2D):
 		# Se for a Bullet, chama a função para ativá-la
 		TowerManager.activate_bullet()
 		# E destrói-se a si mesmo
+		var explosion = explosion_scene.instantiate()
+		explosion.set_property(position)
+
+		get_tree().current_scene.add_child(explosion  )
 		queue_free()
 
 # Chamado quando colide com um PhysicsBody2D (paredes, obstáculos)
