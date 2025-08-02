@@ -3,13 +3,9 @@ class_name ActivatorShot
 extends Area2D
 
 # Velocidade do projétil. Pode ajustar no Inspector.
-@export var speed: float = 300.0
-
-@export var explosion_scene: PackedScene
-
+@export var speed: float = 1000.0
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-
 
 # O alvo que este projétil irá perseguir (a Bullet principal)
 var target: Node2D = null
@@ -40,11 +36,8 @@ func _on_area_entered(area: Area2D):
 		# Se for a Bullet, chama a função para ativá-la
 		TowerManager.activate_bullet()
 		# E destrói-se a si mesmo
-		var explosion = explosion_scene.instantiate()
-		explosion.set_property(position)
-
-		get_tree().current_scene.add_child(explosion  )
 		queue_free()
+		
 
 # Chamado quando colide com um PhysicsBody2D (paredes, obstáculos)
 func _on_body_entered(_body: Node2D):

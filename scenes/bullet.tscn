@@ -1,11 +1,69 @@
-[gd_scene load_steps=11 format=3 uid="uid://etwpscidi1ae"]
+[gd_scene load_steps=20 format=3 uid="uid://etwpscidi1ae"]
 
 [ext_resource type="Script" uid="uid://6twpnml2tgw" path="res://scripts/bullet.gd" id="1_y25gk"]
 [ext_resource type="Texture2D" uid="uid://dy6jctugtc7tj" path="res://assets/fx/bullet_cooldown.png" id="3_eoqba"]
 [ext_resource type="Texture2D" uid="uid://cmv4yaf4q8w6a" path="res://assets/fx/Projectile 17.png" id="3_l5glv"]
+[ext_resource type="Texture2D" uid="uid://dco3b3el1in7r" path="res://assets/fx/explosion.png" id="4_eoqba"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mkf8s"]
 size = Vector2(133.333, 133.333)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s437g"]
+atlas = ExtResource("4_eoqba")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqq7w"]
+atlas = ExtResource("4_eoqba")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6umxm"]
+atlas = ExtResource("4_eoqba")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0apvr"]
+atlas = ExtResource("4_eoqba")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ba0j3"]
+atlas = ExtResource("4_eoqba")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lurao"]
+atlas = ExtResource("4_eoqba")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bssuu"]
+atlas = ExtResource("4_eoqba")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bssuu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s437g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqq7w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6umxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0apvr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ba0j3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lurao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bssuu")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1cfmv"]
 atlas = ExtResource("3_eoqba")
@@ -72,6 +130,12 @@ one_shot = true
 
 [node name="CooldownTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Explosion" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_bssuu")
+speed_scale = 0.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-40, 10)

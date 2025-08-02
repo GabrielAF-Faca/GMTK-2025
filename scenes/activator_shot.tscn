@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://028w8q2torkf"]
+[gd_scene load_steps=9 format=3 uid="uid://028w8q2torkf"]
 
 [ext_resource type="Script" uid="uid://ilxusjgaayqb" path="res://scripts/activator_shot.gd" id="1_j05pl"]
 [ext_resource type="Texture2D" uid="uid://chn17kctnjv67" path="res://assets/fx/Projectile 15.png" id="2_j05pl"]
-[ext_resource type="PackedScene" uid="uid://6igirotb28g" path="res://scenes/explosion.tscn" id="2_soh5w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_soh5w"]
 atlas = ExtResource("2_j05pl")
@@ -47,12 +46,12 @@ radius = 4.0
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_j05pl")
-explosion_scene = ExtResource("2_soh5w")
+speed = 900.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-5, 1)
 sprite_frames = SubResource("SpriteFrames_4b4bl")
-frame_progress = 0.696869
+frame_progress = 0.00892062
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_al4j8")
