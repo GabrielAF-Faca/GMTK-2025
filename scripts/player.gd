@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		# Se não rolou, executa o movimento normal
 		movement_component.handle_movement(self, input_component.direction)
-		animation_component.handle_move_animation(input_component.direction)
+		animation_component.handle_move_animation(self, input_component.direction)
 
 	move_and_slide()
 
