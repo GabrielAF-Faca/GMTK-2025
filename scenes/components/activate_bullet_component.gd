@@ -16,12 +16,19 @@ extends Node
 # --- Variáveis de Estado ---
 var can_fire: bool = true
 var is_charging: bool = false
+var fire: bool = false
 
 func _ready():
 	player_animation_player.animation_finished.connect(_on_animation_finished)
 	cooldown_timer.timeout.connect(_on_cooldown_timer_timeout)
 
 func _process(_delta):
+	if fire and input_component.activate_bullet_released:
+		is_charging = false
+		fire = false
+		fire_activator_shot()
+		cooldown_timer.start(cooldown_time)
+	
 	# Se o jogador soltar a tecla enquanto carrega, cancela a ação
 	if is_charging and input_component.activate_bullet_released:
 		cancel_charge()
@@ -37,11 +44,9 @@ func _on_animation_finished(anim_name):
 	if anim_name == "charge_shot":
 		# Só dispara se ainda estiver no estado de carregamento
 		if is_charging:
-			fire_activator_shot()
-			is_charging = false
+			fire = true
 			#can_fire = false
-			cooldown_timer.start(cooldown_time)
-
+			
 # --- NEW FUNCTION ---
 # Cancela o carregamento do tiro
 func cancel_charge():

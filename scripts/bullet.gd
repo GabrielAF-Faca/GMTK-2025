@@ -118,6 +118,7 @@ func _on_hitbox_area_entered(area: Area2D):
 	
 	# Verifica se o corpo atingido tem um BossComponent
 	if parent_body.has_node("BossComponent"):
-		var boss_component = parent_body.get_node("BossComponent") as BossComponent
+		print("Pog")
+		#var boss_component = parent_body.get_node("BossComponent") as BossComponent
 		# Chama a função no BossComponent para ele lidar com o dano
-		boss_component.handle_bullet_hit()
+		#boss_component.handle_bullet_hit()

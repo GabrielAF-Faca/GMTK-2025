@@ -1,0 +1,110 @@
+[gd_scene load_steps=19 format=3 uid="uid://bpsqrsxqrjjpo"]
+
+[ext_resource type="Script" uid="uid://bsqjdxmro16xx" path="res://scenes/boss/boss_teste.gd" id="1_6g1fd"]
+[ext_resource type="PackedScene" uid="uid://baclhg3vo55mk" path="res://scenes/components/movement_component.tscn" id="3_ewb1e"]
+[ext_resource type="PackedScene" uid="uid://cpkrw4j71aisv" path="res://scenes/state machine/state_machine.tscn" id="4_qhvos"]
+[ext_resource type="PackedScene" uid="uid://cy0li45koi4lv" path="res://scenes/state machine/states/idle_state.tscn" id="5_2ioo3"]
+[ext_resource type="PackedScene" uid="uid://cav7tphmvqqxb" path="res://scenes/components/health_component.tscn" id="5_56wh4"]
+[ext_resource type="Texture2D" uid="uid://uehx72qjptmw" path="res://assets/boss/Golem/Golem_1_idle.png" id="6_ewb1e"]
+[ext_resource type="PackedScene" uid="uid://c8uoum76wkm2h" path="res://scenes/state machine/states/patrol_state.tscn" id="6_m53ex"]
+[ext_resource type="PackedScene" uid="uid://cwum8qhlxcpvn" path="res://scenes/components/animation_component_two_sides.tscn" id="6_qhvos"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhvos"]
+atlas = ExtResource("6_ewb1e")
+region = Rect2(0, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56wh4"]
+atlas = ExtResource("6_ewb1e")
+region = Rect2(90, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ioo3"]
+atlas = ExtResource("6_ewb1e")
+region = Rect2(180, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m53ex"]
+atlas = ExtResource("6_ewb1e")
+region = Rect2(270, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f852y"]
+atlas = ExtResource("6_ewb1e")
+region = Rect2(360, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pme8w"]
+atlas = ExtResource("6_ewb1e")
+region = Rect2(450, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsnfw"]
+atlas = ExtResource("6_ewb1e")
+region = Rect2(540, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6wk3"]
+atlas = ExtResource("6_ewb1e")
+region = Rect2(630, 0, 90, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mfuaf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhvos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56wh4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ioo3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m53ex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f852y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pme8w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsnfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6wk3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewb1e"]
+size = Vector2(35, 37)
+
+[node name="Boss" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "movement_component", "animation_component", "state_machine")]
+script = ExtResource("1_6g1fd")
+health_component = NodePath("HealthComponent")
+movement_component = NodePath("MovementComponent")
+animation_component = NodePath("AnimationComponentTwoSides")
+state_machine = NodePath("StateMachine")
+metadata/_custom_type_script = "uid://d1x70vimatv0h"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mfuaf")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 13.5)
+shape = SubResource("RectangleShape2D_ewb1e")
+
+[node name="MovementComponent" parent="." instance=ExtResource("3_ewb1e")]
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state", "states") instance=ExtResource("4_qhvos")]
+initial_state = NodePath("IdleState")
+states = {
+"idle": NodePath("IdleState")
+}
+
+[node name="IdleState" parent="StateMachine" instance=ExtResource("5_2ioo3")]
+
+[node name="PatrolState" parent="StateMachine" instance=ExtResource("6_m53ex")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_56wh4")]
+
+[node name="AnimationComponentTwoSides" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("6_qhvos")]
+sprite = NodePath("../AnimatedSprite2D")

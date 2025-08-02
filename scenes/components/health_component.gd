@@ -19,9 +19,6 @@ func _ready():
 
 # Função pública para receber dano
 func take_damage(damage_amount: int):
-	# Só processa o dano se a entidade ainda estiver viva
-	if current_health <= 0:
-		return
 
 	current_health = max(0, current_health - damage_amount)
 	emit_signal("health_changed", current_health)

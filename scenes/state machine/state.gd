@@ -1,8 +1,16 @@
 class_name State
 extends Node
 
-var state_machine: Node
-var host: Node
+
+@export_group("State Time")
+@export var state_time_min: float
+@export var state_time_max: float
+
+@onready var rng = RandomNumberGenerator.new()
+
+var state_name: String = ""
+var state_machine: StateMachine
+var host: Boss
 
 func _ready() -> void:
 	host = owner

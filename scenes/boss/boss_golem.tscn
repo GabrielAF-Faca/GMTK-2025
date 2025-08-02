@@ -1,16 +1,14 @@
-[gd_scene load_steps=61 format=3 uid="uid://brhbvsksn0om3"]
+[gd_scene load_steps=57 format=3 uid="uid://brhbvsksn0om3"]
 
 [ext_resource type="Script" uid="uid://7w1nfu7i164i" path="res://scenes/boss/boss_golem.gd" id="1_i54yi"]
-[ext_resource type="Texture2D" uid="uid://cpltuq8lmxrge" path="res://assets/boss/Golem_1_attack.png" id="2_ywr6b"]
-[ext_resource type="Texture2D" uid="uid://despp2g3uts52" path="res://assets/boss/Golem_1_die.png" id="3_3tv1c"]
-[ext_resource type="Texture2D" uid="uid://bk07emv2qxnxt" path="res://assets/boss/Golem_1_hurt.png" id="4_vadj7"]
-[ext_resource type="Texture2D" uid="uid://uehx72qjptmw" path="res://assets/boss/Golem_1_idle.png" id="5_c18mn"]
-[ext_resource type="Texture2D" uid="uid://v2m8dhkui7ba" path="res://assets/boss/Golem_1_walk.png" id="6_5so45"]
+[ext_resource type="Texture2D" uid="uid://cpltuq8lmxrge" path="res://assets/boss/Golem/Golem_1_attack.png" id="2_ywr6b"]
+[ext_resource type="Texture2D" uid="uid://despp2g3uts52" path="res://assets/boss/Golem/Golem_1_die.png" id="3_3tv1c"]
+[ext_resource type="Texture2D" uid="uid://bk07emv2qxnxt" path="res://assets/boss/Golem/Golem_1_hurt.png" id="4_vadj7"]
+[ext_resource type="Texture2D" uid="uid://uehx72qjptmw" path="res://assets/boss/Golem/Golem_1_idle.png" id="5_c18mn"]
+[ext_resource type="Texture2D" uid="uid://v2m8dhkui7ba" path="res://assets/boss/Golem/Golem_1_walk.png" id="6_5so45"]
 [ext_resource type="Script" uid="uid://va0sc2biwom2" path="res://scenes/state machine/state_machine.gd" id="7_3tv1c"]
 [ext_resource type="Script" uid="uid://dkkbutywlfbr" path="res://scenes/state machine/states/idle_state.gd" id="8_vadj7"]
-[ext_resource type="Script" uid="uid://c4ur8mtp4273a" path="res://scenes/state machine/states/patrol.gd" id="9_5so45"]
-[ext_resource type="PackedScene" uid="uid://csjnurbhxf5sx" path="res://scenes/components/boss_component.tscn" id="10_5so45"]
-[ext_resource type="PackedScene" uid="uid://cav7tphmvqqxb" path="res://scenes/components/health_component.tscn" id="11_p0p16"]
+[ext_resource type="Script" uid="uid://c4ur8mtp4273a" path="res://scenes/state machine/states/patrol_state.gd" id="9_5so45"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p0p16"]
 atlas = ExtResource("2_ywr6b")
@@ -76,13 +74,13 @@ region = Rect2(270, 0, 90, 64)
 atlas = ExtResource("3_3tv1c")
 region = Rect2(360, 0, 90, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5u1lf"]
-atlas = ExtResource("3_3tv1c")
-region = Rect2(450, 0, 90, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_ua3gu"]
 atlas = ExtResource("3_3tv1c")
 region = Rect2(540, 0, 90, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5u1lf"]
+atlas = ExtResource("3_3tv1c")
+region = Rect2(450, 0, 90, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ja68b"]
 atlas = ExtResource("3_3tv1c")
@@ -99,14 +97,6 @@ region = Rect2(810, 0, 90, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_6qob5"]
 atlas = ExtResource("3_3tv1c")
 region = Rect2(900, 0, 90, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rkkmc"]
-atlas = ExtResource("3_3tv1c")
-region = Rect2(990, 0, 90, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hlpkf"]
-atlas = ExtResource("3_3tv1c")
-region = Rect2(1080, 0, 90, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tcyin"]
 atlas = ExtResource("4_vadj7")
@@ -232,7 +222,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wh2y6")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 10.0
 }, {
@@ -253,10 +243,10 @@ animations = [{
 "texture": SubResource("AtlasTexture_axnbk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5u1lf")
+"texture": SubResource("AtlasTexture_ua3gu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ua3gu")
+"texture": SubResource("AtlasTexture_5u1lf")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ja68b")
@@ -269,14 +259,8 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6qob5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rkkmc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hlpkf")
 }],
-"loop": true,
+"loop": false,
 "name": &"die",
 "speed": 10.0
 }, {
@@ -293,7 +277,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_m3roq")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt",
 "speed": 10.0
 }, {
@@ -373,9 +357,8 @@ script = ExtResource("1_i54yi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1dv5y")
-animation = &"attack"
+animation = &"die"
 autoplay = "idle"
-frame_progress = 0.393108
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 17)
@@ -394,29 +377,15 @@ collision_mask = 2
 position = Vector2(-1, 17)
 shape = SubResource("CapsuleShape2D_8qj1w")
 
-[node name="PatrolPath" type="Node2D" parent="."]
-
-[node name="Point_1" type="Marker2D" parent="PatrolPath"]
-position = Vector2(1, 111)
-
-[node name="Point_2" type="Marker2D" parent="PatrolPath"]
-position = Vector2(126, -56)
-
-[node name="Point_3" type="Marker2D" parent="PatrolPath"]
-position = Vector2(-147, -51)
-
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state", "states")]
 script = ExtResource("7_3tv1c")
 initial_state = NodePath("Idle")
+states = {
+"idle": NodePath("Idle")
+}
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("8_vadj7")
-next_state_name = "Patrol"
 
 [node name="Patrol" type="Node" parent="StateMachine"]
 script = ExtResource("9_5so45")
-path_node_path = NodePath("../../PatrolPath")
-
-[node name="BossComponent" parent="." instance=ExtResource("10_5so45")]
-
-[node name="HealthComponent" parent="BossComponent" instance=ExtResource("11_p0p16")]

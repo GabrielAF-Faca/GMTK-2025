@@ -4,9 +4,9 @@ extends Node
 @export_subgroup("Nodes")
 @export var sprite: AnimatedSprite2D
 @export var animation_player: AnimationPlayer
-@export var shot_aura_animation: AnimatedSprite2D
 
-@export_subgroup("Ghost")
+@export_subgroup("Player")
+@export var shot_aura_animation: AnimatedSprite2D
 @export var ghost_node: PackedScene
 
 var last_dir = Vector2(1, 0)
