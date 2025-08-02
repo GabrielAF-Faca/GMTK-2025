@@ -3,7 +3,7 @@ class_name ActivatorShot
 extends Area2D
 
 # Velocidade do projétil. Pode ajustar no Inspector.
-@export var speed: float = 1000.0
+@export var speed: float = 800.0
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 

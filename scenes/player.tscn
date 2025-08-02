@@ -398,12 +398,11 @@ activate_bullet_component = NodePath("ActivateBulletComponent")
 
 [node name="Aura" type="AnimatedSprite2D" parent="."]
 show_behind_parent = true
-position = Vector2(-1, -4)
+position = Vector2(0, -3.5)
 scale = Vector2(0.55, 0.699)
 sprite_frames = SubResource("SpriteFrames_2dvfe")
 animation = &"aura"
-frame = 2
-frame_progress = 0.98492
+frame_progress = 0.563308
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 1)
