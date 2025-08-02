@@ -15,6 +15,12 @@ var host: Boss
 func _ready() -> void:
 	host = owner
 
+func enter_message():
+	print(host.name, " entrando no estado "+state_name+".")
+
+func exit_message():
+	print(host.name, " saindo do estado "+state_name+".")
+
 # Função chamada quando entramos neste estado.
 func enter(): pass # Lógica de entrada (ex: iniciar animação, zerar um timer).
 

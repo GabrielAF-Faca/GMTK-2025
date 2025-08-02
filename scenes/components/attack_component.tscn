@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwhcsrrvuftte"]
+
+[ext_resource type="Script" uid="uid://bwvgd7173bcf0" path="res://scenes/components/attack_component.gd" id="1_vbvb0"]
+
+[node name="AttackComponent" type="Node"]
+script = ExtResource("1_vbvb0")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.6
+one_shot = true

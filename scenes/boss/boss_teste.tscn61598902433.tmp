@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://bpsqrsxqrjjpo"]
+[gd_scene load_steps=42 format=3 uid="uid://bpsqrsxqrjjpo"]
 
 [ext_resource type="Script" uid="uid://bsqjdxmro16xx" path="res://scenes/boss/boss_teste.gd" id="1_6g1fd"]
 [ext_resource type="Texture2D" uid="uid://cpltuq8lmxrge" path="res://assets/boss/Golem/Golem_1_attack.png" id="2_m53ex"]
@@ -10,8 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://uehx72qjptmw" path="res://assets/boss/Golem/Golem_1_idle.png" id="6_ewb1e"]
 [ext_resource type="PackedScene" uid="uid://c8uoum76wkm2h" path="res://scenes/state machine/states/patrol_state.tscn" id="6_m53ex"]
 [ext_resource type="PackedScene" uid="uid://cwum8qhlxcpvn" path="res://scenes/components/animation_component_two_sides.tscn" id="6_qhvos"]
-[ext_resource type="PackedScene" uid="uid://drn1jdq5w6bcn" path="res://scenes/state machine/states/attack_state.tscn" id="9_f852y"]
-[ext_resource type="PackedScene" uid="uid://cwhcsrrvuftte" path="res://scenes/components/attack_component.tscn" id="12_pme8w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ll7h"]
 atlas = ExtResource("2_m53ex")
@@ -237,12 +235,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ewb1e"]
 size = Vector2(35, 37)
 
-[node name="Boss" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "movement_component", "animation_component", "attack_component", "state_machine")]
+[node name="Boss" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "movement_component", "animation_component", "state_machine")]
 script = ExtResource("1_6g1fd")
 health_component = NodePath("HealthComponent")
 movement_component = NodePath("MovementComponent")
 animation_component = NodePath("AnimationComponentTwoSides")
-attack_component = NodePath("AttackComponent")
 state_machine = NodePath("StateMachine")
 metadata/_custom_type_script = "uid://d1x70vimatv0h"
 
@@ -262,8 +259,8 @@ decel_speed = 100.0
 [node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state", "states") instance=ExtResource("4_qhvos")]
 initial_state = NodePath("IdleState")
 states = {
-"attack": NodePath("AttackState"),
 "idle": NodePath("IdleState"),
+"idle2": NodePath("IdleState"),
 "patrol": NodePath("PatrolState")
 }
 
@@ -274,11 +271,7 @@ state_time_max = 3.0
 [node name="PatrolState" parent="StateMachine" instance=ExtResource("6_m53ex")]
 arrival_threshold = 3.0
 
-[node name="AttackState" parent="StateMachine" instance=ExtResource("9_f852y")]
-
 [node name="HealthComponent" parent="." instance=ExtResource("5_56wh4")]
 
 [node name="AnimationComponentTwoSides" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("6_qhvos")]
 sprite = NodePath("../AnimatedSprite2D")
-
-[node name="AttackComponent" parent="." instance=ExtResource("12_pme8w")]
