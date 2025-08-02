@@ -18,5 +18,7 @@ func _on_died():
 	# Aqui você pode desativar a colisão, tocar a animação de morte, etc.
 	# Por exemplo, para tocar a animação de morte:
 	animated_sprite.play("die")
+	await animated_sprite.animation_finished
+	queue_free()
 	# Para impedir que ele se mova ou seja controlado pela state machine:
 	set_physics_process(false)
