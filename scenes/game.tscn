@@ -635,6 +635,7 @@ position = Vector2(126, -56)
 [node name="Point_3" type="Marker2D" parent="StandingPoints"]
 position = Vector2(-147, -51)
 
-[node name="Boss" parent="." node_paths=PackedStringArray("standing_points") instance=ExtResource("5_iywne")]
+[node name="Boss" parent="." node_paths=PackedStringArray("player", "standing_points") instance=ExtResource("5_iywne")]
 position = Vector2(327, 129)
+player = NodePath("../Player")
 standing_points = NodePath("../StandingPoints")
