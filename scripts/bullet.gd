@@ -14,10 +14,10 @@ enum Bullet_State { ARMABLE, ARMED, COOLDOWN }
 var current_state: Bullet_State = Bullet_State.ARMABLE
 
 # Referências para os nós que vamos usar
-@onready var sprite: Sprite2D = $Sprite2D
 @onready var armed_timer: Timer = $ArmedTimer
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var hitbox: Area2D = $Area2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 # Cores para dar feedback visual de cada estado
 const COLOR_ARMABLE = Color.YELLOW
@@ -34,7 +34,7 @@ func _ready():
 	cooldown_timer.timeout.connect(_on_cooldown_timer_timeout)
 	
 	# Inicia no estado "Ativável"
-	change_state(Bullet_State.ARMABLE)
+	change_state(Bullet_State.ARMED)
 	
 	# --- CORREÇÃO ---
 	# Conecta o sinal de colisão da hitbox à função correta
@@ -52,18 +52,27 @@ func change_state(new_state: Bullet_State):
 	
 	match current_state:
 		Bullet_State.ARMABLE:
-			sprite.modulate = COLOR_ARMABLE
+			#sprite.modulate = COLOR_ARMABLE
+			var tween = get_tree().create_tween()
+			tween.tween_property(sprite, "scale", Vector2(10, 10), 0.1)
+			tween.play()
+			sprite.play("default")
 			hitbox.monitoring = false
 			print("Bullet está ATIVÁVEL")
 			
 		Bullet_State.ARMED:
-			sprite.modulate = COLOR_ARMED
+			#sprite.modulate = COLOR_ARMED
+			var tween = get_tree().create_tween()
+			sprite.play("cooldown")
+			tween.tween_property(sprite, "scale", Vector2(5, 5), 0.1)
+			tween.play()
+			
 			hitbox.monitoring = true
 			armed_timer.start()
 			print("Bullet foi ATIVADA!")
 			
 		Bullet_State.COOLDOWN:
-			sprite.modulate = COLOR_COOLDOWN
+			#sprite.modulate = COLOR_COOLDOWN
 			hitbox.monitoring = false
 			cooldown_timer.start()
 			print("Bullet em COOLDOWN")
