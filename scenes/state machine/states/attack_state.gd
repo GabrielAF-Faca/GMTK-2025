@@ -1,26 +1,43 @@
+# attack_state.gd
 class_name AttackState
 extends State
 
 func _ready() -> void:
 	state_name = "attack"
 
-var attack = true
-
+# Lógica de entrada no estado de ataque.
 func enter():
 	enter_message()
-	#host.get_node("AnimatedSprite2D").play("idle")
-
-func exit():
-	attack = true
-	exit_message()
-
-func update(delta: float):
-	if attack:
-		attack = false
-		Global.boss_attacking.emit()
+	
+	if not host.has_node("AttackComponent"):
+		print("ERRO: AttackComponent não encontrado no host!")
+		state_machine.change_state()
 		return
 		
-	if not host.attack_component.attacking:
+	var attack_component = host.get_node("AttackComponent")
+
+	if not attack_component.attacking:
+		attack_component.attack_finished.connect(_on_attack_finished, CONNECT_ONE_SHOT)
+		attack_component.perform_attack()
+	else:
 		state_machine.change_state()
 
-		
+# Lógica de saída do estado.
+func exit():
+	exit_message()
+	# Desliga a flag de charge para garantir que o chefe pare de se mover.
+	host.is_charging = false
+	
+	var attack_component = host.get_node("AttackComponent")
+	if attack_component.attack_finished.is_connected(_on_attack_finished):
+		attack_component.attack_finished.disconnect(_on_attack_finished)
+
+## Esta função é chamada quando o AttackComponent emite o sinal 'attack_finished'.
+func _on_attack_finished():
+	# Agora que o ataque terminou, podemos mudar para um estado aleatório.
+	state_machine.change_state()
+
+
+# A função update não é mais necessária aqui, a lógica agora é orientada a eventos!
+func update(delta: float):
+	pass

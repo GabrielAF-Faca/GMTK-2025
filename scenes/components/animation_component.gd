@@ -19,7 +19,11 @@ func handle_horizontal_flip(move_direction:float) -> void:
 	
 	sprite.flip_h = false if move_direction > 0 else true
 
-func handle_move_animation(move_direction: Vector2) -> void:
+func face_target(body, target:CharacterBody2D) -> void:
+
+	sprite.flip_h = false if target.global_position.x > body.global_position.x  else true
+
+func handle_move_animation(body:CharacterBody2D, move_direction: Vector2) -> void:
 	handle_horizontal_flip(move_direction.x)
 	if move_direction != Vector2.ZERO:
 		last_dir = move_direction

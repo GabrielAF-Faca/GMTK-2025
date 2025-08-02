@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bigfcd4527vst"]
+
+[ext_resource type="Script" uid="uid://c7tu6khd5njhl" path="res://scenes/boss/attacks/simple_melee_attack.gd" id="1_olfr3"]
+
+[node name="SimpleMeleeAttack" type="Node"]
+script = ExtResource("1_olfr3")

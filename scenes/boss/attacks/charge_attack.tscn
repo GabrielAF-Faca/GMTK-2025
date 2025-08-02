@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqfphat2d2ggv"]
+
+[ext_resource type="Script" uid="uid://dhudpk4vopw66" path="res://scenes/boss/attacks/charge_attack.gd" id="1_iebgw"]
+
+[node name="ChargeAttack" type="Node"]
+script = ExtResource("1_iebgw")

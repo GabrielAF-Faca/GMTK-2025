@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://nkiwv7hu67nt"]
+
+[ext_resource type="Script" uid="uid://dc6ff7mtp8c0d" path="res://scenes/boss/boss_attack.gd" id="1_jtgc1"]
+
+[node name="BossAttack" type="Node"]
+script = ExtResource("1_jtgc1")
