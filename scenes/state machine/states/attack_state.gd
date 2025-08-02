@@ -35,7 +35,7 @@ func exit():
 
 ## Esta função é chamada quando o AttackComponent emite o sinal 'attack_finished'.
 func _on_attack_finished():
-	print("PINTO PEITOS PENIS BUNDA")
+	print("Attack finished callback triggered")
 	# Agora que o ataque terminou, podemos mudar para um estado aleatório.
 	state_machine.change_state()
 
