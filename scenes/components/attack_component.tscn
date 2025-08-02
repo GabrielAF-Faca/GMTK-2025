@@ -6,5 +6,4 @@
 script = ExtResource("1_vbvb0")
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 2.6
 one_shot = true

@@ -14,10 +14,11 @@ func enter():
 		state_machine.change_state()
 		return
 		
-	var attack_component = host.get_node("AttackComponent")
+	var attack_component = host.attack_component
 
 	if not attack_component.attacking:
-		attack_component.attack_finished.connect(_on_attack_finished, CONNECT_ONE_SHOT)
+		if not attack_component.attack_finished.is_connected(_on_attack_finished):
+			attack_component.attack_finished.connect(_on_attack_finished)
 		attack_component.perform_attack()
 	else:
 		state_machine.change_state()
@@ -27,13 +28,14 @@ func exit():
 	exit_message()
 	# Desliga a flag de charge para garantir que o chefe pare de se mover.
 	host.is_charging = false
-	
-	var attack_component = host.get_node("AttackComponent")
-	if attack_component.attack_finished.is_connected(_on_attack_finished):
-		attack_component.attack_finished.disconnect(_on_attack_finished)
+	#host.is_stunned = false
+	#var attack_component = host.get_node("AttackComponent")
+	#if attack_component.attack_finished.is_connected(_on_attack_finished):
+		#attack_component.attack_finished.disconnect(_on_attack_finished)
 
 ## Esta função é chamada quando o AttackComponent emite o sinal 'attack_finished'.
 func _on_attack_finished():
+	print("Attack finished callback triggered")
 	# Agora que o ataque terminou, podemos mudar para um estado aleatório.
 	state_machine.change_state()
 
