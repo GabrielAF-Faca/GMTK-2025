@@ -14,7 +14,7 @@ func _ready() -> void:
 
 func enter():
 	var patrol_points_node = host.standing_points
-	print(host.name, " entrando no estado Patrol.")
+	enter_message()
 	# Limpa a lista antiga e preenche com as novas posições.
 	waypoints.clear()
 	for point in patrol_points_node.get_children():
@@ -43,7 +43,7 @@ func update(_delta: float):
 		host.move_direction = direction
 
 func exit():
-	print(host.name, " saindo do estado Patrol.")
+	exit_message()
 	
 	
 	#if host.has_node("AnimatedSprite2D"):

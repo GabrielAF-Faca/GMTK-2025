@@ -1,5 +1,6 @@
 extends AnimationComponent
 
+
 func handle_move_animation(move_direction: Vector2) -> void:
 	handle_horizontal_flip(move_direction.x)
 	if move_direction != Vector2.ZERO:
@@ -11,3 +12,8 @@ func handle_move_animation(move_direction: Vector2) -> void:
 	else:
 		if last_dir.x != 0:
 			sprite.play("idle")
+
+func handle_attack_animation() -> void:
+	sprite.play("attack")
+
+	

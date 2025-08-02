@@ -9,6 +9,8 @@ extends Node
 @export var shot_aura_animation: AnimatedSprite2D
 @export var ghost_node: PackedScene
 
+signal attack_finished
+
 var last_dir = Vector2(1, 0)
 
 func handle_horizontal_flip(move_direction:float) -> void:
