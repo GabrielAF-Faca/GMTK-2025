@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwum8qhlxcpvn"]
+
+[ext_resource type="Script" uid="uid://cfcg8lupm3eo7" path="res://scenes/components/animation_component_two_sides.gd" id="1_qwsqj"]
+
+[node name="AnimationComponentTwoSides" type="Node"]
+script = ExtResource("1_qwsqj")
