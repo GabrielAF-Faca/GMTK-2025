@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bpsqrsxqrjjpo"]
+[gd_scene load_steps=50 format=3 uid="uid://bpsqrsxqrjjpo"]
 
 [ext_resource type="Script" uid="uid://bsqjdxmro16xx" path="res://scenes/boss/boss_teste.gd" id="1_6g1fd"]
 [ext_resource type="Texture2D" uid="uid://cpltuq8lmxrge" path="res://assets/boss/Golem/Golem_1_attack.png" id="2_m53ex"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c8uoum76wkm2h" path="res://scenes/state machine/states/patrol_state.tscn" id="6_m53ex"]
 [ext_resource type="PackedScene" uid="uid://cwum8qhlxcpvn" path="res://scenes/components/animation_component_two_sides.tscn" id="6_qhvos"]
 [ext_resource type="PackedScene" uid="uid://drn1jdq5w6bcn" path="res://scenes/state machine/states/attack_state.tscn" id="9_f852y"]
+[ext_resource type="PackedScene" uid="uid://bykj5vhjrhmnk" path="res://scenes/ghost.tscn" id="12_lynih"]
 [ext_resource type="PackedScene" uid="uid://cwhcsrrvuftte" path="res://scenes/components/attack_component.tscn" id="12_pme8w"]
 [ext_resource type="Script" uid="uid://dc6ff7mtp8c0d" path="res://scenes/boss/boss_attack.gd" id="13_n6wk3"]
 [ext_resource type="Script" uid="uid://c7tu6khd5njhl" path="res://scenes/boss/attacks/simple_melee_attack.gd" id="14_mfuaf"]
@@ -242,22 +243,22 @@ size = Vector2(35, 37)
 
 [sub_resource type="Resource" id="Resource_lynih"]
 script = ExtResource("14_mfuaf")
+attack_duration = 2.6
 animation_name = "attack"
-attack_duration = 4.0
 loop_animation = false
-cooldown = 0.5
 metadata/_custom_type_script = "uid://c7tu6khd5njhl"
 
 [sub_resource type="Resource" id="Resource_viurf"]
 script = ExtResource("15_mfuaf")
-charge_speed = 800.0
-charge_up_duration = 0.5
+charge_speed = 300.0
+charge_up_duration = 1.5
 telegraph_animation = "idle"
 charge_animation = "walk"
-animation_name = "attack"
-attack_duration = 2.0
+stun_duration_on_hit = 0.7
+stun_animation = "idle"
+attack_duration = 3.0
+animation_name = ""
 loop_animation = false
-cooldown = 0.5
 metadata/_custom_type_script = "uid://dhudpk4vopw66"
 
 [node name="Boss" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "movement_component", "attack_component", "animation_component")]
@@ -302,6 +303,10 @@ arrival_threshold = 3.0
 
 [node name="AnimationComponentTwoSides" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("6_qhvos")]
 sprite = NodePath("../AnimatedSprite2D")
+ghost_node = ExtResource("12_lynih")
 
 [node name="AttackComponent" parent="." instance=ExtResource("12_pme8w")]
 attacks = Array[ExtResource("13_n6wk3")]([SubResource("Resource_lynih"), SubResource("Resource_viurf")])
+
+[node name="StunTimer" type="Timer" parent="."]
+one_shot = true

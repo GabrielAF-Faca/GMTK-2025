@@ -2,18 +2,20 @@
 class_name SimpleMeleeAttack
 extends BossAttack
 
-# Podemos pré-configurar os valores no _init ou alterá-los no inspetor.
+# Pré-configuramos os valores no _init. Eles podem ser alterados no Inspetor
+# para cada recurso de ataque que você criar.
 func _init():
+	# Define a duração padrão deste ataque. Este é o valor que o Timer usará.
+	attack_duration = 1.5
+	# Define a animação a ser tocada.
 	animation_name = "attack"
-	attack_duration = 2.6 # O mesmo tempo do seu Timer original.
+	loop_animation = false
 
 func execute(host: Boss, attack_component: AttackComponent):
-	# Garante que o host tenha o componente de animação.
-	if not host.animation_component:
-		print("ERRO: SimpleMeleeAttack não encontrou o AnimationComponent no host.")
-		return
-		
-	# --- LINHA CORRIGIDA ---
-	# Manda o componente de animação do chefe tocar a animação correta,
-	# usando as propriedades definidas neste recurso (animation_name e loop_animation).
-	host.animation_component.handle_attack_animation(animation_name, loop_animation)
+	# Chama a função base primeiro para as verificações.
+	super.execute(host, attack_component)
+	
+	# Se tivermos um componente de animação e um nome de animação, tocamos a animação.
+	# A lógica do jogo NÃO vai esperar a animação terminar. Ela vai esperar o Timer.
+	if host.animation_component and animation_name:
+		host.animation_component.handle_attack_animation(animation_name, loop_animation)

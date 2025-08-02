@@ -29,13 +29,14 @@ func _process(delta: float):
 # A função principal em que é feita a troca dos estados.
 func change_state(state=""):
 	# Se o estado não existe ou é o atual, não faz nada.
+	print(state)
 	var new_state_name = state
-	
+	print(new_state_name)
 	if not state.length():
 		new_state_name = choose_random_state()
-	
-	if not states.has(new_state_name) or states[new_state_name] == current_state:
-		return
+	print(new_state_name)
+	#if not states.has(new_state_name) or states[new_state_name] == current_state:
+		#return
 	# Chama a função de saída do estado atual.
 	if current_state:
 		current_state.exit()
