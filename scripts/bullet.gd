@@ -8,7 +8,7 @@ extends Node2D
 @export var cooldown_duration: float = 3.0 # Duração do estado "Desativada" (em segundos)
 
 # Define os 3 estados possíveis da bullet usando um enum
-enum Bullet_State { ARMABLE, ARMED, COOLDOWN }
+enum Bullet_State { ARMABLE, ARMED, COOLDOWN, SPAWNING}
 
 # Guarda o estado atual da bullet
 var current_state: Bullet_State = Bullet_State.ARMABLE
@@ -18,6 +18,8 @@ var current_state: Bullet_State = Bullet_State.ARMABLE
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var hitbox: Area2D = $Area2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var explosion: AnimatedSprite2D = $Explosion
+
 
 # Cores para dar feedback visual de cada estado
 const COLOR_ARMABLE = Color.YELLOW
@@ -34,7 +36,7 @@ func _ready():
 	cooldown_timer.timeout.connect(_on_cooldown_timer_timeout)
 	
 	# Inicia no estado "Ativável"
-	change_state(Bullet_State.ARMED)
+	change_state(Bullet_State.SPAWNING)
 	
 	# --- CORREÇÃO ---
 	# Conecta o sinal de colisão da hitbox à função correta
@@ -51,6 +53,12 @@ func change_state(new_state: Bullet_State):
 	current_state = new_state
 	
 	match current_state:
+		Bullet_State.SPAWNING:
+			sprite.play("cooldown")
+			hitbox.monitoring = true
+			armed_timer.start()
+			sprite.scale = Vector2(5, 5)
+		
 		Bullet_State.ARMABLE:
 			#sprite.modulate = COLOR_ARMABLE
 			var tween = get_tree().create_tween()
@@ -59,18 +67,33 @@ func change_state(new_state: Bullet_State):
 			sprite.play("default")
 			hitbox.monitoring = false
 			print("Bullet está ATIVÁVEL")
-			
+		
 		Bullet_State.ARMED:
 			#sprite.modulate = COLOR_ARMED
+			explosion.play("default")
+			explosion.speed_scale = 1.0
+			explosion.frame = 0
+			explosion.scale = Vector2(0.5, 0.5)
+			explosion.modulate = Color(1.0, 1.0, 1.0)
+			
 			var tween = get_tree().create_tween()
-			sprite.play("cooldown")
-			tween.tween_property(sprite, "scale", Vector2(5, 5), 0.1)
+			tween.tween_property(explosion, "scale", Vector2(12, 11.7), 0.4)
+			tween.set_parallel(true)
+			tween.tween_property(explosion, "modulate", Color(1.0, 1.0, 1.0, 0.0), 1)
+			tween.set_trans(Tween.TRANS_CUBIC)
+			tween.set_ease(Tween.EASE_IN_OUT)
 			tween.play()
+			
+			sprite.play("cooldown")
+			
+			var tween_scale = get_tree().create_tween()
+			tween_scale.tween_property(sprite, "scale", Vector2(5, 5), 0.1)
+			tween_scale.play()
 			
 			hitbox.monitoring = true
 			armed_timer.start()
 			print("Bullet foi ATIVADA!")
-			
+		
 		Bullet_State.COOLDOWN:
 			#sprite.modulate = COLOR_COOLDOWN
 			hitbox.monitoring = false
