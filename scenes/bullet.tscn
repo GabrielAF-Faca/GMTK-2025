@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://cmv4yaf4q8w6a" path="res://assets/fx/Projectile 17.png" id="3_l5glv"]
 [ext_resource type="Texture2D" uid="uid://dco3b3el1in7r" path="res://assets/fx/explosion.png" id="4_eoqba"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mkf8s"]
-size = Vector2(133.333, 133.333)
+[sub_resource type="CircleShape2D" id="CircleShape2D_eoqba"]
+radius = 260.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s437g"]
 atlas = ExtResource("4_eoqba")
@@ -123,7 +123,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(9.93411e-06, 1.98682e-06)
-shape = SubResource("RectangleShape2D_mkf8s")
+shape = SubResource("CircleShape2D_eoqba")
 
 [node name="ArmedTimer" type="Timer" parent="."]
 one_shot = true

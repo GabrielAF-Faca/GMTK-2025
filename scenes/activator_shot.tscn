@@ -40,13 +40,12 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_al4j8"]
-radius = 4.0
+radius = 7.0
 
 [node name="ActivatorShot" type="Area2D"]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_j05pl")
-speed = 900.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-5, 1)
