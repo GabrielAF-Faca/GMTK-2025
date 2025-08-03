@@ -63,6 +63,8 @@ func handle_charge_attack(_delta: float):
 				# Aplica a força de knockback no player.
 				collider.movement_component.apply_knockback(collider, charge_direction, charge_attack.knockback_force, charge_attack.knockback_duration)
 				host.audio_component.play_audio_stream("batendo_chao")
+				host.player.camera_component.screen_shake(6, 0.5)
+				
 				# Opcional: Fazer o chefe parar ou ficar atordoado ao acertar o player.
 				# Se quiser que o chefe pare a investida ao acertar, descomente as linhas abaixo.
 				is_charging = false
