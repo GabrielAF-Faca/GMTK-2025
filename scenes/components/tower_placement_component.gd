@@ -84,11 +84,14 @@ func handle_initial_creation(delta: float):
 	if is_charging and input_component.interact_pressed:
 		update_throw_force(delta)
 		update_trajectory_preview()
-		trajectory_preview.show()
+		held_tower_sprite.global_position = owner_player.global_position + Vector2(0, -30)
+		held_tower_sprite.show()
+		#trajectory_preview.show()
 		
 	if is_charging and input_component.interact_just_released:
 		is_charging = false
-		trajectory_preview.hide()
+		held_tower_sprite.hide()
+		#trajectory_preview.hide()
 		create_and_throw_new_tower()
 
 # Lida com pegar e soltar as torres já existentes
@@ -123,13 +126,14 @@ func create_and_throw_new_tower():
 		
 	var new_tower = tower_scene.instantiate() as Tower
 	get_tree().current_scene.add_child(new_tower) # Adiciona à cena primeiro
-	
-	var direction = animation_component.last_dir
-	if direction == Vector2.ZERO:
-		direction = Vector2.RIGHT
-		
-	var throw_position = owner_player.global_position + direction * current_throw_force
-	new_tower.global_position = throw_position
+	#
+	#var direction = animation_component.last_dir
+	#if direction == Vector2.ZERO:
+		#direction = Vector2.RIGHT
+		#
+	#var throw_position = owner_player.global_position + direction * current_throw_force
+	#new_tower.global_position = throw_position
+	new_tower.global_position = owner_player.global_position
 	
 	# Em vez de só mostrar, chama a nova função de animação
 	new_tower.play_spawn_animation()
