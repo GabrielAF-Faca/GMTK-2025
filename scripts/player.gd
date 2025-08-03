@@ -11,6 +11,7 @@ extends CharacterBody2D
 @export var audio_component: AudioComponent
 
 @export var actual_camera: Camera2D
+@export var game_over_scene: PackedScene
 
 @onready var roll_timer: Timer = $RollTimer
 @onready var ghost_timer: Timer = $GhostTimer
@@ -21,7 +22,8 @@ var can_roll = true
 func _ready():
 	camera_component.camera = actual_camera
 	$Sprite2D.material.set_shader_parameter('hit_flash_on', false)
-
+	if hurtbox_component:
+		hurtbox_component.died.connect(_on_died)
 
 func _physics_process(delta: float) -> void:
 	
@@ -72,6 +74,28 @@ func _physics_process(delta: float) -> void:
 		animation_component.handle_move_animation(self, input_component.direction)
 
 	move_and_slide()
+	
+
+func _on_died():
+	# 1. Imediatamente para toda a lógica de controle do jogador.
+	set_physics_process(false)
+	# Desativa a colisão do corpo do jogador para evitar interações estranhas.
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
+
+	# 2. Chama a função de animação de morte no componente de animação.
+	#animation_component.handle_death_animation()
+
+	# 3. Espera a animação terminar.
+	#await animation_component.sprite.animation_finished
+
+	# 4. Muda para a cena de Game Over.
+	if game_over_scene:
+		get_tree().change_scene_to_packed(game_over_scene)
+	else:
+		# Fallback caso nenhuma cena seja definida
+		print("GAME OVER! Nenhuma cena de Game Over foi definida.")
+		get_tree().quit()
 
 func _on_roll_timer_timeout() -> void:
 	can_roll = true
