@@ -19,13 +19,17 @@ func _ready():
 	current_health = max_health
 	
 	# Garante que este nó processe colisões de área.
-	monitoring = true
+	set_deferred("monitoring", true)
 
 # Esta é a função pública que outros nós (como um Hitbox) chamarão.
 func take_damage(damage_amount: float):
 	if current_health <= 0:
 		return # Já está morto, não pode receber mais dano.
-
+	
+	var player_reference = get_tree().get_first_node_in_group("player")
+	if owner == player_reference:
+		player_reference.camera_component.screen_shake(2, 1)
+	
 	current_health -= damage_amount
 	health_changed.emit(current_health, max_health)
 	

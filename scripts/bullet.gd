@@ -86,6 +86,8 @@ func change_state(new_state: Bullet_State):
 			tween.set_ease(Tween.EASE_IN_OUT)
 			tween.play()
 			
+			hitbox_component.source.camera_component.screen_shake(4, 0.8)
+			
 			sprite.play("cooldown")
 			
 			var tween_scale = get_tree().create_tween()
