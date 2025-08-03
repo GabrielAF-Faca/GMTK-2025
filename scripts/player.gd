@@ -7,11 +7,17 @@ extends CharacterBody2D
 @export var roll_component: RollComponent
 @export var activate_bullet_component: ActivateBulletComponent
 @export var hurtbox_component: HurtboxComponent
+@export var actual_camera: Camera2D
+
+@export var camera_component: CameraComponent
 
 @onready var roll_timer: Timer = $RollTimer
 @onready var ghost_timer: Timer = $GhostTimer
 
 var can_roll = true
+
+func _ready():
+	camera_component.camera = actual_camera
 
 func _physics_process(delta: float) -> void:
 	
