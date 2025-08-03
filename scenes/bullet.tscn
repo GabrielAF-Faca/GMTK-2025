@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://etwpscidi1ae"]
+[gd_scene load_steps=25 format=3 uid="uid://etwpscidi1ae"]
 
 [ext_resource type="Script" uid="uid://6twpnml2tgw" path="res://scripts/bullet.gd" id="1_y25gk"]
 [ext_resource type="Script" uid="uid://3ggyea326xtp" path="res://scenes/components/hitbox_component.gd" id="2_qncy5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dco3b3el1in7r" path="res://assets/fx/explosion.png" id="4_eoqba"]
 [ext_resource type="PackedScene" uid="uid://o3fduf4ueiv8" path="res://scenes/components/audio_component.tscn" id="6_tamys"]
 [ext_resource type="AudioStream" uid="uid://8h1tq3sij2ek" path="res://assets/audios/bullet/explosao.wav" id="7_26lx3"]
+[ext_resource type="AudioStream" uid="uid://b3f4qu2omnmt3" path="res://assets/audios/bullet/humm.wav" id="8_1cfmv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eoqba"]
 radius = 108.333
@@ -167,5 +168,6 @@ one_shot = true
 
 [node name="AudioComponent" parent="." instance=ExtResource("6_tamys")]
 audios = Dictionary[String, AudioStream]({
+"barulinho": ExtResource("8_1cfmv"),
 "explosao": ExtResource("7_26lx3")
 })
