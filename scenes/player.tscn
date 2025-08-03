@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://b5a20owxyt7xw"]
+[gd_scene load_steps=76 format=3 uid="uid://b5a20owxyt7xw"]
 
 [ext_resource type="Script" uid="uid://dqbvkgds11omj" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dq3xdtec1oqsm" path="res://assets/player/prototype_character.png" id="2_tuyoq"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://dp3kpbio06gar" path="res://scenes/components/hurtbox_component.gd" id="12_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://chn17kctnjv67" path="res://assets/fx/Projectile 15.png" id="13_jej6c"]
 [ext_resource type="PackedScene" uid="uid://dtfmm7s11ikqs" path="res://scenes/components/camera_component.tscn" id="14_f1ej7"]
+[ext_resource type="Shader" uid="uid://mp5mulgh7eqk" path="res://shaders/hitflash.gdshader" id="14_i4ail"]
 [ext_resource type="PackedScene" uid="uid://o3fduf4ueiv8" path="res://scenes/components/audio_component.tscn" id="15_oprun"]
 [ext_resource type="AudioStream" uid="uid://bk4n6ymo0r3xo" path="res://assets/audios/player/passos.wav" id="16_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://c0tccbnuumy5b" path="res://assets/audios/player/pode_atirar.wav" id="17_qfm1y"]
@@ -131,6 +132,11 @@ animations = [{
 "name": &"brilho",
 "speed": 5.0
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i4ail"]
+shader = ExtResource("14_i4ail")
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/hit_flash_on = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ke2ow"]
 atlas = ExtResource("2_tuyoq")
@@ -397,6 +403,12 @@ size = Vector2(37.4998, 20.8332)
 [sub_resource type="CircleShape2D" id="CircleShape2D_tuyoq"]
 radius = 22.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a38lo"]
+resource_local_to_scene = true
+shader = ExtResource("14_i4ail")
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/hit_flash_on = false
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d2wvv"]
 radius = 3.0
 height = 12.0
@@ -437,6 +449,43 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_i4ail"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_flash_on")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_a38lo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_flash_on")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a38lo"]
+_data = {
+&"RESET": SubResource("Animation_a38lo"),
+&"hit": SubResource("Animation_i4ail")
+}
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "movement_component", "animation_component", "roll_component", "activate_bullet_component", "hurtbox_component", "camera_component", "audio_component") groups=["player"]]
 y_sort_enabled = true
 collision_layer = 257
@@ -461,6 +510,7 @@ frame_progress = 0.563308
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_i4ail")
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_ke2ow")
 animation = &"charge_shot"
@@ -511,13 +561,15 @@ one_shot = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("CircleShape2D_tuyoq")
 
-[node name="HurtBox" type="Area2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("hit_flash")]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("12_3v2ag")
+hit_flash = NodePath("../Hit")
 metadata/_custom_type_script = "uid://dp3kpbio06gar"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+material = SubResource("ShaderMaterial_a38lo")
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_d2wvv")
 
@@ -542,6 +594,11 @@ one_shot = true
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
+
+[node name="Hit" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_a38lo")
+}
 
 [connection signal="timeout" from="RollTimer" to="." method="_on_roll_timer_timeout"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]

@@ -50,6 +50,7 @@ func handle_charge_attack(_delta: float):
 	host.animation_component.add_ghost(host, charge_direction)
 	host.velocity = charge_direction * charge_speed
 	host.set_collision_mask_value(9, true)
+	
 	var collision = host.get_last_slide_collision()
 	if collision:
 		var collider = collision.get_collider()
@@ -61,7 +62,7 @@ func handle_charge_attack(_delta: float):
 			if charge_attack and collider.movement_component.has_method("apply_knockback"):
 				# Aplica a força de knockback no player.
 				collider.movement_component.apply_knockback(collider, charge_direction, charge_attack.knockback_force, charge_attack.knockback_duration)
-				
+				host.audio_component.play_audio_stream("batendo_chao")
 				# Opcional: Fazer o chefe parar ou ficar atordoado ao acertar o player.
 				# Se quiser que o chefe pare a investida ao acertar, descomente as linhas abaixo.
 				is_charging = false
@@ -71,6 +72,7 @@ func handle_charge_attack(_delta: float):
 		# Se colidiu com qualquer outra coisa (parede) e não está atordoado...
 		elif host.stun_timer.is_stopped():
 			is_charging = false
+			host.audio_component.play_audio_stream("batendo_chao")
 			host.player.camera_component.screen_shake(10, 0.8)
 			host.set_collision_mask_value(9, false)
 			stop_attack_timer()
@@ -87,7 +89,6 @@ func _on_attack_timer_timeout():
 		attacking = false
 		is_charging = false
 		attack_finished.emit()
-		
 
 func finish_attack_manually():
 	if not attacking: return

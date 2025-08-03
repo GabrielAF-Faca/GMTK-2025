@@ -8,7 +8,10 @@ signal health_changed(current_health, max_health)
 # Sinal emitido quando a vida chega a zero.
 signal died
 
-@export var max_health: float = 20.0
+
+@export var max_health: float = 30.0
+@export var hit_flash: AnimationPlayer
+
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -30,6 +33,8 @@ func take_damage(damage_amount: float):
 	if owner == player_reference:
 		player_reference.camera_component.screen_shake(2, 1)
 	
+	if hit_flash:
+		hit_flash.play("hit")
 	current_health -= damage_amount
 	health_changed.emit(current_health, max_health)
 	
