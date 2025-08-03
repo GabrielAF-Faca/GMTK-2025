@@ -1,8 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cb5ygkh88c8w6"]
 
-[ext_resource type="Script" uid="uid://drwjkqbibb87j" path="res://scripts/sound_manager.gd" id="1_gbdfy"]
+[gd_scene load_steps=2 format=3 uid="uid://d3wfepqxkd02m"]
+
+[ext_resource type="Script" uid="uid://dbhe1a8w7pqnv" path="res://scripts/sound_manager.gd" id="1_gbdfy"]
 
 [node name="SoundManager" type="Node2D"]
 script = ExtResource("1_gbdfy")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
