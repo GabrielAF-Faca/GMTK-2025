@@ -1,11 +1,21 @@
 # animation_component_two_sides.gd
 extends AnimationComponent
 
+var can_spawn = true
+
 func _process(delta: float) -> void:
 	if is_instance_of(owner.attack_component.current_attack, SimpleMeleeAttack):
 		if sprite.frame == 6 and sprite.animation == "attack":
 			owner.audio_component.play_audio_stream("batendo_chao")
 			shake()
+			
+			if can_spawn:
+				can_spawn = false
+				var ataque = preload("res://scenes/ground_attack.tscn").instantiate()
+				ataque.set_properties(get_tree().get_first_node_in_group("player").global_position)
+				add_child(ataque)
+		else:
+			can_spawn = true
 
 func handle_death_animation():
 	sprite.play("die")
