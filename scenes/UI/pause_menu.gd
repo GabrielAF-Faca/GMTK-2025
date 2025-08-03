@@ -3,6 +3,11 @@ extends CanvasLayer
 signal change_scene_requested(scene_to_load: PackedScene)
 
 @export var menu_scene: PackedScene
+@export var back_button: Button
+
+func _ready():
+	if back_button:
+		back_button.grab_focus()
 
 func _on_quit_button_pressed() -> void:
 	get_tree().paused = false
