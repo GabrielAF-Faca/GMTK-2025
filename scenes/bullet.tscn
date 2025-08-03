@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dco3b3el1in7r" path="res://assets/fx/explosion.png" id="4_eoqba"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eoqba"]
-radius = 260.0
+radius = 150.231
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s437g"]
 atlas = ExtResource("4_eoqba")
@@ -123,8 +123,8 @@ script = ExtResource("1_y25gk")
 hitbox_component = NodePath("HitboxComponent")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 16
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(9.93411e-06, 1.98682e-06)
@@ -158,3 +158,4 @@ metadata/_custom_type_script = "uid://3ggyea326xtp"
 shape = SubResource("CircleShape2D_qncy5")
 
 [node name="Timer" type="Timer" parent="HitboxComponent"]
+one_shot = true

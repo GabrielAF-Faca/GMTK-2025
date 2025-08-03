@@ -16,9 +16,11 @@ func _ready() -> void:
 	host = owner
 
 func enter_message():
+	pass
 	print(host.name, " entrando no estado "+state_name+".")
 
 func exit_message():
+	pass
 	print(host.name, " saindo do estado "+state_name+".")
 
 # Função chamada quando entramos neste estado.

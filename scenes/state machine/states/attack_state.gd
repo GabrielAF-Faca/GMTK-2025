@@ -7,7 +7,7 @@ func _ready() -> void:
 
 # Lógica de entrada no estado de ataque.
 func enter():
-	enter_message()
+	#enter_message()
 	
 	if not host.has_node("AttackComponent"):
 		print("ERRO: AttackComponent não encontrado no host!")
@@ -25,7 +25,7 @@ func enter():
 
 # Lógica de saída do estado.
 func exit():
-	exit_message()
+	#exit_message()
 	# Desliga a flag de charge para garantir que o chefe pare de se mover.
 	host.attack_component.is_charging = false
 	#host.is_stunned = false
