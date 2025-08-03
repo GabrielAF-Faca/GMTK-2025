@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b4lcnvmnqwgkj" path="res://assets/tiles/darkdungeon_tileset_allinone.png" id="4_e2p27"]
 [ext_resource type="Texture2D" uid="uid://hmv27y25ne7a" path="res://assets/player/torre.png" id="6_ngj32"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ngj32"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bm8t2"]
 texture = ExtResource("4_e2p27")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -591,7 +591,7 @@ texture = ExtResource("4_e2p27")
 [sub_resource type="TileSet" id="TileSet_bm8t2"]
 physics_layer_0/collision_layer = 3
 physics_layer_0/collision_mask = 3
-sources/0 = SubResource("TileSetAtlasSource_ngj32")
+sources/0 = SubResource("TileSetAtlasSource_bm8t2")
 
 [sub_resource type="Gradient" id="Gradient_ngj32"]
 offsets = PackedFloat32Array(0, 0.5, 1)

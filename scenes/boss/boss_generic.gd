@@ -32,6 +32,7 @@ var move_direction: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	stun_timer.timeout.connect(_on_stun_timer_timeout)
 	#step_timer.timeout.connect(_on_step_timer_timeout)
+	
 	if hurtbox_component:
 		hurtbox_component.died.connect(_on_died)
 
