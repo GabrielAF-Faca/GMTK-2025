@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://b5a20owxyt7xw"]
+[gd_scene load_steps=69 format=3 uid="uid://b5a20owxyt7xw"]
 
 [ext_resource type="Script" uid="uid://dqbvkgds11omj" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dq3xdtec1oqsm" path="res://assets/player/prototype_character.png" id="2_tuyoq"]
@@ -14,6 +14,11 @@
 [ext_resource type="Script" uid="uid://dp3kpbio06gar" path="res://scenes/components/hurtbox_component.gd" id="12_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://chn17kctnjv67" path="res://assets/fx/Projectile 15.png" id="13_jej6c"]
 [ext_resource type="PackedScene" uid="uid://dtfmm7s11ikqs" path="res://scenes/components/camera_component.tscn" id="14_f1ej7"]
+[ext_resource type="PackedScene" uid="uid://o3fduf4ueiv8" path="res://scenes/components/audio_component.tscn" id="15_oprun"]
+[ext_resource type="AudioStream" uid="uid://bk4n6ymo0r3xo" path="res://assets/audios/player/passos.wav" id="16_a8ls1"]
+[ext_resource type="AudioStream" uid="uid://c0tccbnuumy5b" path="res://assets/audios/player/pode_atirar.wav" id="17_qfm1y"]
+[ext_resource type="AudioStream" uid="uid://bn26x10ld2gs3" path="res://assets/audios/player/canalizando.wav" id="18_fulsm"]
+[ext_resource type="AudioStream" uid="uid://vh7a4ygktpe6" path="res://assets/audios/player/atirando.wav" id="19_4r5pv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_31cv2"]
 atlas = ExtResource("11_d2wvv")
@@ -431,7 +436,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "movement_component", "animation_component", "roll_component", "activate_bullet_component", "hurtbox_component", "camera_component") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "movement_component", "animation_component", "roll_component", "activate_bullet_component", "hurtbox_component", "camera_component", "audio_component") groups=["player"]]
 y_sort_enabled = true
 collision_layer = 257
 script = ExtResource("1_g2els")
@@ -442,6 +447,7 @@ roll_component = NodePath("RollComponent")
 activate_bullet_component = NodePath("ActivateBulletComponent")
 hurtbox_component = NodePath("HurtBox")
 camera_component = NodePath("CameraComponent")
+audio_component = NodePath("AudioComponent")
 
 [node name="Aura" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -520,5 +526,18 @@ z_index = 1
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_3v2ag")
 
+[node name="AudioComponent" parent="." instance=ExtResource("15_oprun")]
+audios = Dictionary[String, AudioStream]({
+"casting": ExtResource("18_fulsm"),
+"firing": ExtResource("19_4r5pv"),
+"passos": ExtResource("16_a8ls1"),
+"pode_atirar": ExtResource("17_qfm1y")
+})
+
+[node name="StepTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="timeout" from="RollTimer" to="." method="_on_roll_timer_timeout"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
+[connection signal="timeout" from="StepTimer" to="." method="_on_step_timer_timeout"]

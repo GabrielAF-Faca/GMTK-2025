@@ -2,6 +2,8 @@
 class_name Bullet
 extends Node2D
 
+@export var audio_component: AudioComponent
+
 # Exporta as variáveis para que possamos ajustá-las facilmente no Inspector
 @export_group("Bullet Settings")
 @export var armed_duration: float = 0.5   # Duração do estado "Ativada" (em segundos)
@@ -86,7 +88,9 @@ func change_state(new_state: Bullet_State):
 			tween.set_ease(Tween.EASE_IN_OUT)
 			tween.play()
 			
-			hitbox_component.source.camera_component.screen_shake(4, 0.8)
+			audio_component.play_audio_stream("explosao")
+			
+			hitbox_component.source.camera_component.screen_shake(6, 0.8)
 			
 			sprite.play("cooldown")
 			
