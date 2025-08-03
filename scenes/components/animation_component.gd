@@ -19,6 +19,9 @@ func handle_horizontal_flip(move_direction:float) -> void:
 	
 	sprite.flip_h = false if move_direction > 0 else true
 
+func handle_death_animation():
+	animation_player.play("die")
+
 func face_target(body, target:CharacterBody2D) -> void:
 
 	sprite.flip_h = false if target.global_position.x > body.global_position.x  else true

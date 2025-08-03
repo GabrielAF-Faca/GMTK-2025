@@ -8,7 +8,7 @@ signal health_changed(current_health, max_health)
 # Sinal emitido quando a vida chega a zero.
 signal died
 
-@export var max_health: float = 100.0
+@export var max_health: float = 20.0
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -36,6 +36,7 @@ func take_damage(damage_amount: float):
 	print("%s recebeu %s de dano. Vida restante: %s" % [owner.name, damage_amount, current_health])
 
 	if current_health <= 0:
+		
 		died.emit()
 		# Desativa a colisão para não receber mais dano após morrer.
 		set_deferred("monitoring", false)
