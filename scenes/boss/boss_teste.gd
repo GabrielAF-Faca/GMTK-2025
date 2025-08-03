@@ -1,3 +1,4 @@
+class_name Golem
 extends Boss
 
 func _ready() -> void:
