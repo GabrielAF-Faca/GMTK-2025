@@ -7,7 +7,9 @@ func _process(delta: float) -> void:
 			owner.audio_component.play_audio_stream("batendo_chao")
 			shake()
 
-
+func handle_death_animation():
+	sprite.play("die")
+	
 # A lógica de como a animação de movimento funciona está aqui.
 func handle_move_animation(body: CharacterBody2D, move_direction: Vector2) -> void:
 	# Garante que a animação de movimento possa repetir.
