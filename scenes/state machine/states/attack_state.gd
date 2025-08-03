@@ -27,7 +27,7 @@ func enter():
 func exit():
 	exit_message()
 	# Desliga a flag de charge para garantir que o chefe pare de se mover.
-	host.is_charging = false
+	host.attack_component.is_charging = false
 	#host.is_stunned = false
 	#var attack_component = host.get_node("AttackComponent")
 	#if attack_component.attack_finished.is_connected(_on_attack_finished):

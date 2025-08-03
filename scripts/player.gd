@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var animation_component: AnimationComponent
 @export var roll_component: RollComponent
 @export var activate_bullet_component: ActivateBulletComponent
+@export var hurtbox_component: HurtboxComponent
 
 @onready var roll_timer: Timer = $RollTimer
 @onready var ghost_timer: Timer = $GhostTimer
@@ -29,6 +30,7 @@ func _physics_process(delta: float) -> void:
 	
 	# 2. ESTADO: ROLAR
 	if roll_component.rolling:
+		
 		roll_component.handle_roll_movement(self, delta)
 		if ghost_timer.is_stopped():
 			ghost_timer.start()
@@ -40,11 +42,16 @@ func _physics_process(delta: float) -> void:
 	
 	# Tenta iniciar um rolamento
 	if input_component.roll and can_roll:
+		hurtbox_component.deactivate()
+		set_collision_layer_value(9, false)
 		can_roll = false
 		roll_component._dodge_roll(input_component.direction)
 		animation_component.handle_roll_animation(input_component.direction, roll_component.dodge_duration)
 		roll_timer.start(roll_component.dodge_duration + 0.1)
 	else:
+		hurtbox_component.activate()
+		set_collision_layer_value(9, true)
+		
 		# Se não rolou, executa o movimento normal
 		movement_component.handle_movement(self, input_component.direction)
 		animation_component.handle_move_animation(self, input_component.direction)
