@@ -4,11 +4,16 @@ extends Area2D
 
 # Velocidade do projétil. Pode ajustar no Inspector.
 @export var speed: float = 800.0
+@export var audio_component: AudioComponent
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var timer: Timer = $Timer
+
 
 # O alvo que este projétil irá perseguir (a Bullet principal)
 var target: Node2D = null
+
+var destruiu = false
 
 func _ready():
 	# Conecta os sinais de colisão e visibilidade
@@ -17,6 +22,10 @@ func _ready():
 	$VisibleOnScreenNotifier2D.screen_exited.connect(queue_free)
 
 func _process(delta: float):
+	
+	if destruiu:
+		return
+	
 	# Se o alvo não for válido (ainda não foi definido ou foi destruído), o projétil se destrói.
 	if not is_instance_valid(target):
 		queue_free()
@@ -42,4 +51,13 @@ func _on_area_entered(area: Area2D):
 # Chamado quando colide com um PhysicsBody2D (paredes, obstáculos)
 func _on_body_entered(_body: Node2D):
 	# Se colidir com qualquer corpo físico, destrói-se.
+	#owner.audio_component.play_audio_stream("pode_atirar")
+	audio_component.play_audio_stream("destroy", Vector2(0.9, 1.1))
+	
+	destruiu = true
+	$AnimatedSprite2D.visible = false
+	timer.start()
+
+
+func _on_timer_timeout() -> void:
 	queue_free()
