@@ -91,7 +91,7 @@ func _on_died():
 
 	# 4. Muda para a cena de Game Over.
 	if game_over_scene:
-		get_tree().change_scene_to_packed(game_over_scene)
+		get_tree().call_deferred("change_scene_to_packed", game_over_scene)
 	else:
 		# Fallback caso nenhuma cena seja definida
 		print("GAME OVER! Nenhuma cena de Game Over foi definida.")

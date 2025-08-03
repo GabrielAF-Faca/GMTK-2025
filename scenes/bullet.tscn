@@ -162,8 +162,10 @@ metadata/_custom_type_script = "uid://3ggyea326xtp"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_qncy5")
+disabled = true
 
 [node name="Timer" type="Timer" parent="HitboxComponent"]
+wait_time = 0.3
 one_shot = true
 
 [node name="AudioComponent" parent="." instance=ExtResource("6_tamys")]

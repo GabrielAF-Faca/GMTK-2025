@@ -5,6 +5,10 @@ var can_spawn = true
 
 func _process(delta: float) -> void:
 	if is_instance_of(owner.attack_component.current_attack, SimpleMeleeAttack):
+		
+		if not is_instance_of(owner, Golem):
+			return
+		
 		if sprite.frame == 6 and sprite.animation == "attack":
 			owner.audio_component.play_audio_stream("batendo_chao")
 			shake()

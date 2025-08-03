@@ -450,6 +450,7 @@ decel_speed = 100.0
 initial_state = NodePath("IdleState")
 states = {
 "attack": NodePath("AttackState"),
+"attack2": NodePath("AttackState"),
 "idle": NodePath("IdleState"),
 "patrol": NodePath("PatrolState")
 }

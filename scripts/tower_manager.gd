@@ -3,7 +3,7 @@ extends Node
 
 # Referências para as cenas que vamos instanciar
 const PathManager = preload("res://scenes/path_manager.tscn")
-const Bullet = preload("res://scenes/bullet.tscn")
+const bullet = preload("res://scenes/bullet.tscn")
 
 # Array para guardar as referências das torres posicionadas no mundo
 var active_towers: Array[Node2D] = []
@@ -56,7 +56,7 @@ func create_or_update_path():
 	
 	if not is_instance_valid(bullet_instance):
 		var path_follow_node: PathFollow2D = path_node.get_node("PathFollow2D")
-		bullet_instance = Bullet.instantiate()
+		bullet_instance = bullet.instantiate()
 		path_follow_node.add_child(bullet_instance)
 		
 		# --- IMPORTANT CHANGE ---

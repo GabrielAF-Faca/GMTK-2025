@@ -24,15 +24,19 @@ func _on_area_entered(area: Area2D):
 	# se já tivermos acertado algo e estivermos no cooldown.
 	if area.owner == source:
 		return
-	print(owner)
-	if area is HurtboxComponent and not collision_shape.disabled:
-		# Chama a função 'take_damage' no Hurtbox.
-		area.take_damage(damage)
 		
-		# Desativa a colisão imediatamente para não acertar de novo no mesmo frame.
-		call_deferred("deactivate")
-		# Inicia o timer de cooldown.
-		cooldown_timer.start(hit_cooldown)
+	if not area is HurtboxComponent:
+		return
+	
+	if collision_shape.disabled:
+		return
+		
+	# Chama a função 'take_damage' no Hurtbox.
+	area.take_damage(damage)
+	# Desativa a colisão imediatamente para não acertar de novo no mesmo frame.
+	call_deferred("deactivate")
+	# Inicia o timer de cooldown.
+	cooldown_timer.start(hit_cooldown)
 
 # Chamado quando o timer de cooldown termina.
 func _on_cooldown_timer_timeout():
@@ -41,12 +45,14 @@ func _on_cooldown_timer_timeout():
 
 # Ativa o hitbox (geralmente no início de um frame de animação de ataque).
 func activate():
+	print("Ativei")
 	# Garante que a colisão esteja ativada no início do ataque.
 	collision_shape.disabled = false
 
 # Desativa o hitbox (geralmente no fim de um frame de animação de ataque).
 func deactivate():
+	print("Ativei")
 	# Desativa a colisão e para o timer para evitar que ele reative o hitbox
 	# depois que o ataque já terminou.
 	collision_shape.disabled = true
-	#cooldown_timer.stop()
+	cooldown_timer.stop()

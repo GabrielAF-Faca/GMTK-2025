@@ -8,8 +8,7 @@ func _ready() -> void:
 
 func set_properties(pos: Vector2):
 	global_position = pos
-	
 
 
-func _on_animated_sprite_2d_animation_finished() -> void:
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	queue_free()
