@@ -18,4 +18,10 @@ func update(delta: float):
 	timer -= delta
 	# Quando o tempo acabar, transita para o estado de Patrulha
 	if timer <= 0:
-		state_machine.change_state("patrol")
+		var gamble = Global.rng.randf_range(0, 100)
+		
+		if gamble < 30:
+			state_machine.change_state("patrol")
+		else:
+			state_machine.change_state("attack")
+			

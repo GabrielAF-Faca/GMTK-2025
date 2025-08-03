@@ -10,7 +10,7 @@ extends Area2D
 
 # Certifique-se de que este nó Timer exista como filho do HitboxComponent na cena.
 @onready var cooldown_timer: Timer = $Timer
-@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var collision_shape: CollisionShape2D = $SwordShape
 
 func _ready():
 	# Conecta os sinais necessários.
@@ -24,6 +24,7 @@ func _on_area_entered(area: Area2D):
 	# se já tivermos acertado algo e estivermos no cooldown.
 	if area.owner == source:
 		return
+	print(owner)
 	if area is HurtboxComponent and not collision_shape.disabled:
 		# Chama a função 'take_damage' no Hurtbox.
 		area.take_damage(damage)
