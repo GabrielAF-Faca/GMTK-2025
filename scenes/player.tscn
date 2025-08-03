@@ -432,6 +432,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "movement_component", "animation_component", "roll_component", "activate_bullet_component", "hurtbox_component", "camera_component") groups=["player"]]
+y_sort_enabled = true
 collision_layer = 257
 script = ExtResource("1_g2els")
 input_component = NodePath("InputComponent")
@@ -443,6 +444,7 @@ hurtbox_component = NodePath("HurtBox")
 camera_component = NodePath("CameraComponent")
 
 [node name="Aura" type="AnimatedSprite2D" parent="."]
+visible = false
 show_behind_parent = true
 position = Vector2(0, -3.5)
 scale = Vector2(0.55, 0.699)
@@ -451,6 +453,7 @@ animation = &"aura"
 frame_progress = 0.563308
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_ke2ow")
 animation = &"charge_shot"
@@ -497,7 +500,6 @@ wait_time = 0.08
 one_shot = true
 
 [node name="InteractionArea" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("CircleShape2D_tuyoq")
@@ -513,6 +515,9 @@ position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_d2wvv")
 
 [node name="TiroFake" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 1
+y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_3v2ag")
 
 [connection signal="timeout" from="RollTimer" to="." method="_on_roll_timer_timeout"]
