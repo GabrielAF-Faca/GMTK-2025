@@ -134,6 +134,7 @@ shape = SubResource("CapsuleShape2D_ofs1b")
 disabled = true
 
 [node name="Timer" type="Timer" parent="HitboxComponent"]
+one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(15, -7)
