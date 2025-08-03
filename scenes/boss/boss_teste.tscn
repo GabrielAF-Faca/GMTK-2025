@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bpsqrsxqrjjpo"]
+[gd_scene load_steps=57 format=3 uid="uid://bpsqrsxqrjjpo"]
 
 [ext_resource type="Script" uid="uid://bsqjdxmro16xx" path="res://scenes/boss/boss_teste.gd" id="1_6g1fd"]
 [ext_resource type="Texture2D" uid="uid://cpltuq8lmxrge" path="res://assets/boss/Golem/Golem_1_attack.png" id="2_m53ex"]
@@ -13,6 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://drn1jdq5w6bcn" path="res://scenes/state machine/states/attack_state.tscn" id="9_f852y"]
 [ext_resource type="PackedScene" uid="uid://bykj5vhjrhmnk" path="res://scenes/ghost.tscn" id="12_lynih"]
 [ext_resource type="PackedScene" uid="uid://cwhcsrrvuftte" path="res://scenes/components/attack_component.tscn" id="12_pme8w"]
+[ext_resource type="Script" uid="uid://dc6ff7mtp8c0d" path="res://scenes/boss/boss_attack.gd" id="13_n6wk3"]
+[ext_resource type="Script" uid="uid://c7tu6khd5njhl" path="res://scenes/boss/attacks/simple_melee_attack.gd" id="14_mfuaf"]
+[ext_resource type="Script" uid="uid://dhudpk4vopw66" path="res://scenes/boss/attacks/charge_attack.gd" id="15_mfuaf"]
 [ext_resource type="Script" uid="uid://dp3kpbio06gar" path="res://scenes/components/hurtbox_component.gd" id="17_0jbm5"]
 [ext_resource type="Script" uid="uid://3ggyea326xtp" path="res://scenes/components/hitbox_component.gd" id="17_viurf"]
 [ext_resource type="PackedScene" uid="uid://o3fduf4ueiv8" path="res://scenes/components/audio_component.tscn" id="21_e7m4g"]
@@ -244,6 +247,28 @@ animations = [{
 radius = 12.0
 height = 31.0
 
+[sub_resource type="Resource" id="Resource_e7m4g"]
+script = ExtResource("14_mfuaf")
+attack_duration = 1.0
+animation_name = ""
+loop_animation = false
+metadata/_custom_type_script = "uid://c7tu6khd5njhl"
+
+[sub_resource type="Resource" id="Resource_uldyp"]
+script = ExtResource("15_mfuaf")
+charge_speed = 800.0
+charge_up_duration = 0.5
+telegraph_animation = "idle"
+charge_animation = "walk"
+stun_duration_on_hit = 0.7
+stun_animation = "idle"
+knockback_force = 600.0
+knockback_duration = 0.3
+attack_duration = 1.0
+animation_name = ""
+loop_animation = false
+metadata/_custom_type_script = "uid://dhudpk4vopw66"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_viurf"]
 size = Vector2(39, 38)
 
@@ -302,6 +327,10 @@ sprite = NodePath("../AnimatedSprite2D")
 ghost_node = ExtResource("12_lynih")
 
 [node name="AttackComponent" parent="." instance=ExtResource("12_pme8w")]
+attacks = Dictionary[String, ExtResource("13_n6wk3")]({
+"attack": SubResource("Resource_e7m4g"),
+"charge": SubResource("Resource_uldyp")
+})
 
 [node name="StunTimer" type="Timer" parent="."]
 one_shot = true
