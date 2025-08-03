@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxd6karu3ufc5"]
-
-[ext_resource type="Script" uid="uid://c3th6ygl5r2vb" path="res://scenes/boss/attacks/shockwave_attack.gd" id="1_aci5m"]
-
-[node name="Shockwave_attack" type="Node"]
-script = ExtResource("1_aci5m")
