@@ -1,8 +1,9 @@
-[gd_scene load_steps=76 format=3 uid="uid://bpsqrsxqrjjpo"]
+[gd_scene load_steps=77 format=3 uid="uid://bpsqrsxqrjjpo"]
 
 [ext_resource type="Script" uid="uid://bsqjdxmro16xx" path="res://scenes/boss/boss_teste.gd" id="1_6g1fd"]
 [ext_resource type="Shader" uid="uid://mp5mulgh7eqk" path="res://shaders/hitflash.gdshader" id="2_5auks"]
 [ext_resource type="Texture2D" uid="uid://cpltuq8lmxrge" path="res://assets/boss/Golem/Golem_1_attack.png" id="2_m53ex"]
+[ext_resource type="PackedScene" uid="uid://c4j28cf341sbu" path="res://scenes/room_2.tscn" id="2_rji8s"]
 [ext_resource type="Texture2D" uid="uid://v2m8dhkui7ba" path="res://assets/boss/Golem/Golem_1_walk.png" id="3_2ioo3"]
 [ext_resource type="PackedScene" uid="uid://baclhg3vo55mk" path="res://scenes/components/movement_component.tscn" id="3_ewb1e"]
 [ext_resource type="Texture2D" uid="uid://despp2g3uts52" path="res://assets/boss/Golem/Golem_1_die.png" id="3_uldyp"]
@@ -378,6 +379,21 @@ size = Vector2(39, 38)
 [sub_resource type="CircleShape2D" id="CircleShape2D_viurf"]
 radius = 16.0
 
+[sub_resource type="Animation" id="Animation_31ix8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/hit_flash_on")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_8ll7h"]
 resource_name = "hit"
 length = 0.2
@@ -392,21 +408,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
-}
-
-[sub_resource type="Animation" id="Animation_31ix8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/hit_flash_on")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xtq3q"]
@@ -427,7 +428,7 @@ animation_component = NodePath("AnimationComponentTwoSides")
 hurtbox_component = NodePath("HurtBox")
 hitbox_component = NodePath("HitboxComponent")
 audio_component = NodePath("AudioComponent")
-win_scene = ExtResource("2_5auks")
+win_scene = ExtResource("2_rji8s")
 metadata/_custom_type_script = "uid://d1x70vimatv0h"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
