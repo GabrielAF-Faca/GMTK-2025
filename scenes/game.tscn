@@ -600,6 +600,7 @@ texture = ExtResource("3_lbhrr")
 sources/0 = SubResource("TileSetAtlasSource_lbhrr")
 
 [node name="Game" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_uwrxv")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]

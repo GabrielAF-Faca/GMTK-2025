@@ -3,10 +3,13 @@ class_name Tower
 extends Area2D
 
 var original_scale: Vector2
+@onready var point: Marker2D = $Marker2D
+
 
 func _ready():
 	# Guarda a escala original da torre definida no editor
 	original_scale = self.scale
+	set_y_sort_enabled(true)
 
 # Nova função para a animação de "spawn"
 func play_spawn_animation():

@@ -63,6 +63,7 @@ func handle_charge_attack(_delta: float):
 		# Se colidiu com qualquer outra coisa (parede) e não está atordoado...
 		elif host.stun_timer.is_stopped():
 			is_charging = false
+			host.player.camera_component.screen_shake(10, 0.8)
 			host.set_collision_mask_value(9, false)
 			stop_attack_timer()
 			
@@ -78,6 +79,7 @@ func _on_attack_timer_timeout():
 		attacking = false
 		is_charging = false
 		attack_finished.emit()
+		
 
 func finish_attack_manually():
 	if not attacking: return

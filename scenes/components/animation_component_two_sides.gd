@@ -1,6 +1,12 @@
 # animation_component_two_sides.gd
 extends AnimationComponent
 
+func _process(delta: float) -> void:
+	if is_instance_of(owner.attack_component.current_attack, SimpleMeleeAttack):
+		if sprite.frame == 6 and sprite.animation == "attack":
+			shake()
+
+
 # A lógica de como a animação de movimento funciona está aqui.
 func handle_move_animation(body: CharacterBody2D, move_direction: Vector2) -> void:
 	# Garante que a animação de movimento possa repetir.
@@ -29,5 +35,9 @@ func handle_attack_animation(animation_name: String, loop: bool) -> void:
 
 	if sprite.is_playing() and sprite.animation == animation_name:
 		return
-
+	
 	sprite.play(animation_name)
+
+func shake():
+	
+	owner.player.camera_component.screen_shake(5, 0.8)

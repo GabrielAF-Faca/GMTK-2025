@@ -38,8 +38,8 @@ func create_or_update_path():
 	var path_node: Path2D = path_manager_instance.get_node("Path2D")
 	
 	# Define os pontos da curva
-	var tower1_pos = active_towers[0].global_position
-	var tower2_pos = active_towers[1].global_position
+	var tower1_pos = active_towers[0].point.global_position
+	var tower2_pos = active_towers[1].point.global_position
 	
 	var distance = tower1_pos.distance_to(tower2_pos)
 	var angle = tower1_pos.angle_to_point(tower2_pos)

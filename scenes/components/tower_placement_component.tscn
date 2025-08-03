@@ -1,14 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://upmdtlxurore"]
 
 [ext_resource type="Script" uid="uid://cmcatutx03rt0" path="res://scenes/components/tower_placement_component.gd" id="1_6n088"]
-[ext_resource type="Texture2D" uid="uid://cplm0vb06pbdj" path="res://icon.svg" id="2_6p6ry"]
+[ext_resource type="Texture2D" uid="uid://hmv27y25ne7a" path="res://assets/player/torre.png" id="2_6p6ry"]
 
 [node name="TowerPlacementComponent" type="Node"]
 script = ExtResource("1_6n088")
 
 [node name="HeldTowerSprite" type="Sprite2D" parent="."]
-modulate = Color(0.968627, 0.215686, 1, 1)
-self_modulate = Color(0.976471, 0.298039, 0.87451, 1)
+y_sort_enabled = true
 position = Vector2(0, -20)
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_6p6ry")
