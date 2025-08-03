@@ -5,6 +5,7 @@ extends Node
 @export_group("Settings")
 @export var activator_shot_scene: PackedScene
 @export var cooldown_time: float = 1.0
+@export var tiro_sprite: AnimatedSprite2D
 
 # --- Referências de Nós ---
 @onready var owner_player: CharacterBody2D = owner
@@ -21,14 +22,40 @@ var fire: bool = false
 func _ready():
 	player_animation_player.animation_finished.connect(_on_animation_finished)
 	cooldown_timer.timeout.connect(_on_cooldown_timer_timeout)
+	reset_tiro_sprite()
+	
+func reset_tiro_sprite():
+	tiro_sprite.visible = false
+	tiro_sprite.modulate = Color(1.0, 1.0, 1.0, 0.0)
+	tiro_sprite.scale = Vector2(0,0)
+	tiro_sprite.stop()
+
+func show_tiro_fake():
+	tiro_sprite.visible = true
+	var tween = get_tree().create_tween()
+	tween.tween_property(tiro_sprite, "modulate", Color(1.0, 1.0, 1.0), 0.1)
+	tween.set_parallel(true)
+	tween.tween_property(tiro_sprite, "scale", Vector2(1, 1), 0.1)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.play()
+	tiro_sprite.play("default")
 
 func _process(_delta):
 	if fire and input_component.activate_bullet_released:
 		is_charging = false
 		fire = false
+		reset_tiro_sprite()
 		fire_activator_shot()
 		cooldown_timer.start(cooldown_time)
 	
+	if fire and is_charging:
+		var bullet_instance = TowerManager.get_bullet_instance()
+		if is_instance_valid(bullet_instance):
+			show_tiro_fake()
+			
+			tiro_sprite.rotation = owner.global_position.angle_to_point(bullet_instance.global_position)
+			
 	# Se o jogador soltar a tecla enquanto carrega, cancela a ação
 	if is_charging and input_component.activate_bullet_released:
 		cancel_charge()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://b5a20owxyt7xw"]
+[gd_scene load_steps=63 format=3 uid="uid://b5a20owxyt7xw"]
 
 [ext_resource type="Script" uid="uid://dqbvkgds11omj" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dq3xdtec1oqsm" path="res://assets/player/prototype_character.png" id="2_tuyoq"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://028w8q2torkf" path="res://scenes/activator_shot.tscn" id="10_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://doycg8ka83kmy" path="res://assets/fx/Holy Light Aura.png" id="11_d2wvv"]
 [ext_resource type="Script" uid="uid://dp3kpbio06gar" path="res://scenes/components/hurtbox_component.gd" id="12_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://chn17kctnjv67" path="res://assets/fx/Projectile 15.png" id="13_jej6c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_31cv2"]
 atlas = ExtResource("11_d2wvv")
@@ -393,6 +394,42 @@ radius = 22.0
 radius = 3.0
 height = 12.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dvfe"]
+atlas = ExtResource("13_jej6c")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_giy8y"]
+atlas = ExtResource("13_jej6c")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdfoy"]
+atlas = ExtResource("13_jej6c")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhpqf"]
+atlas = ExtResource("13_jej6c")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3v2ag"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dvfe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_giy8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdfoy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hhpqf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "movement_component", "animation_component", "roll_component", "activate_bullet_component", "hurtbox_component") groups=["player"]]
 collision_layer = 257
 script = ExtResource("1_g2els")
@@ -443,8 +480,9 @@ dodge_speed = 250.0
 [node name="TowerPlacementComponent" parent="." instance=ExtResource("7_fjrip")]
 tower_scene = ExtResource("8_smehm")
 
-[node name="ActivateBulletComponent" parent="." instance=ExtResource("9_ur7pv")]
+[node name="ActivateBulletComponent" parent="." node_paths=PackedStringArray("tiro_sprite") instance=ExtResource("9_ur7pv")]
 activator_shot_scene = ExtResource("10_y4r1p")
+tiro_sprite = NodePath("../TiroFake")
 
 [node name="RollTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -469,6 +507,9 @@ metadata/_custom_type_script = "uid://dp3kpbio06gar"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_d2wvv")
+
+[node name="TiroFake" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3v2ag")
 
 [connection signal="timeout" from="RollTimer" to="." method="_on_roll_timer_timeout"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
