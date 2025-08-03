@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=4 uid="uid://c4j28cf341sbu"]
+[gd_scene load_steps=11 format=4 uid="uid://c4j28cf341sbu"]
 
 [ext_resource type="Script" uid="uid://fr15d0u6ajgg" path="res://scripts/game.gd" id="1_lsxps"]
 [ext_resource type="Texture2D" uid="uid://b4lcnvmnqwgkj" path="res://assets/tiles/darkdungeon_tileset_allinone.png" id="2_63qte"]
 [ext_resource type="Texture2D" uid="uid://dsbelsy175q46" path="res://assets/tiles/shadow.png" id="3_flmds"]
 [ext_resource type="PackedScene" uid="uid://b5a20owxyt7xw" path="res://scenes/player.tscn" id="4_hbe2o"]
 [ext_resource type="PackedScene" uid="uid://bg8tyvu0acior" path="res://scenes/boss/boss2righi/boss_2_righi.tscn" id="6_63qte"]
+[ext_resource type="PackedScene" uid="uid://d1doiupecjyue" path="res://scenes/UI/health_ui.tscn" id="6_flmds"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iywne"]
 texture = ExtResource("2_63qte")
@@ -612,8 +613,9 @@ tile_map_data = PackedByteArray("AAADAAIAAAABAAAAAAAEAAIAAAABAAAAAAAFAAIAAAABAAA
 tile_set = SubResource("TileSet_iywne")
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." node_paths=PackedStringArray("actual_camera") instance=ExtResource("4_hbe2o")]
+[node name="Player" parent="." node_paths=PackedStringArray("health_ui", "actual_camera") instance=ExtResource("4_hbe2o")]
 position = Vector2(432, 290)
+health_ui = NodePath("../HealthUI")
 actual_camera = NodePath("../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -667,3 +669,10 @@ position = Vector2(231, -74)
 position = Vector2(283, 140)
 player = NodePath("../Player")
 standing_points = NodePath("../StandingPoints")
+
+[node name="HealthUI" parent="." instance=ExtResource("6_flmds")]
+offset_left = 55.0
+offset_top = 17.0
+offset_right = 95.0
+offset_bottom = 57.0
+scale = Vector2(0.6, 0.6)
