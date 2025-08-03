@@ -6,6 +6,7 @@ extends Area2D
 @export var damage: float = 10.0
 # O tempo em segundos que o hitbox fica desativado após acertar um alvo.
 @export var hit_cooldown: float = 0.5
+@export var source: CharacterBody2D
 
 # Certifique-se de que este nó Timer exista como filho do HitboxComponent na cena.
 @onready var cooldown_timer: Timer = $Timer
@@ -21,19 +22,23 @@ func _on_area_entered(area: Area2D):
 	# Verificamos se a área que entrou é um Hurtbox.
 	# A verificação 'collision_shape.disabled' previne que o sinal seja processado
 	# se já tivermos acertado algo e estivermos no cooldown.
+	if area.owner == source:
+		return
+		
 	if area is HurtboxComponent and not collision_shape.disabled:
 		# Chama a função 'take_damage' no Hurtbox.
 		area.take_damage(damage)
 		
 		# Desativa a colisão imediatamente para não acertar de novo no mesmo frame.
-		collision_shape.disabled = true
+		call_deferred("activate")
 		# Inicia o timer de cooldown.
 		cooldown_timer.start(hit_cooldown)
 
 # Chamado quando o timer de cooldown termina.
 func _on_cooldown_timer_timeout():
 	# Reativa a colisão, permitindo que o hitbox acerte novamente.
-	collision_shape.disabled = false
+	call_deferred("deactivate")
+
 
 # Ativa o hitbox (geralmente no início de um frame de animação de ataque).
 func activate():

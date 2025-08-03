@@ -27,6 +27,7 @@ const COLOR_ARMED = Color.RED
 const COLOR_COOLDOWN = Color.GRAY
 
 func _ready():
+	hitbox_component.source = get_tree().get_first_node_in_group("player")
 	# Configura a duração dos timers com base nas variáveis exportadas
 	armed_timer.wait_time = armed_duration
 	cooldown_timer.wait_time = cooldown_duration
@@ -53,6 +54,7 @@ func change_state(new_state: Bullet_State):
 		Bullet_State.SPAWNING:
 			sprite.play("cooldown")
 			hitbox.monitoring = true
+			hitbox_component.call_deferred("deactivate")
 			armed_timer.start()
 			sprite.scale = Vector2(5, 5)
 		
@@ -63,7 +65,7 @@ func change_state(new_state: Bullet_State):
 			tween.play()
 			sprite.play("default")
 			hitbox.monitoring = false
-			hitbox_component.deactivate()
+			hitbox_component.call_deferred("deactivate")
 			print("Bullet está ATIVÁVEL")
 		
 		Bullet_State.ARMED:
@@ -73,7 +75,8 @@ func change_state(new_state: Bullet_State):
 			explosion.frame = 0
 			explosion.scale = Vector2(0.5, 0.5)
 			explosion.modulate = Color(1.0, 1.0, 1.0)
-			hitbox_component.activate()
+			
+			hitbox_component.call_deferred("activate")
 			
 			var tween = get_tree().create_tween()
 			tween.tween_property(explosion, "scale", Vector2(12, 11.7), 0.4)
@@ -95,8 +98,8 @@ func change_state(new_state: Bullet_State):
 		
 		Bullet_State.COOLDOWN:
 			#sprite.modulate = COLOR_COOLDOWN
+			hitbox_component.call_deferred("deactivate")
 			hitbox.monitoring = false
-			hitbox_component.deactivate()
 			cooldown_timer.start()
 			print("Bullet em COOLDOWN")
 

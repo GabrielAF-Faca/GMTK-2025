@@ -328,6 +328,8 @@ one_shot = true
 
 [node name="HurtBox" type="Area2D" parent="."]
 position = Vector2(-1, -17)
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("17_0jbm5")
 metadata/_custom_type_script = "uid://dp3kpbio06gar"
 
@@ -335,11 +337,12 @@ metadata/_custom_type_script = "uid://dp3kpbio06gar"
 position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_viurf")
 
-[node name="HitboxComponent" type="Area2D" parent="."]
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("source")]
 position = Vector2(-1, -17)
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("17_viurf")
+source = NodePath("..")
 metadata/_custom_type_script = "uid://3ggyea326xtp"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
