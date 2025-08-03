@@ -24,10 +24,12 @@ func _ready():
 func perform_attack(attack_name:String=""):
 	if attacking or attacks.is_empty(): return
 	
-	current_attack = attacks[attack_name]
+	
 	if not attack_name.length():
 		current_attack = attacks.values().pick_random()
-	
+	else:
+		current_attack = attacks[attack_name]
+		
 	attacking = true
 	
 	if not current_attack:
