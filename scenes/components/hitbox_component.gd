@@ -10,7 +10,7 @@ extends Area2D
 
 # Certifique-se de que este nó Timer exista como filho do HitboxComponent na cena.
 @onready var cooldown_timer: Timer = $Timer
-@onready var collision_shape: CollisionShape2D = $SwordShape
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 func _ready():
 	# Conecta os sinais necessários.
