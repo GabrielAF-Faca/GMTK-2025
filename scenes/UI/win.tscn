@@ -1231,9 +1231,12 @@ horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("2_f7ibt")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/focus = SubResource("StyleBoxTexture_hnkml")
 text = "Main Menu"
 flat = true
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
