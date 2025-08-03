@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=4 uid="uid://ct24s0r82lnr0"]
+[gd_scene load_steps=10 format=4 uid="uid://c4j28cf341sbu"]
 
-[ext_resource type="Script" path="res://scripts/game.gd" id="1_lsxps"]
+[ext_resource type="Script" uid="uid://fr15d0u6ajgg" path="res://scripts/game.gd" id="1_lsxps"]
 [ext_resource type="Texture2D" uid="uid://b4lcnvmnqwgkj" path="res://assets/tiles/darkdungeon_tileset_allinone.png" id="2_63qte"]
 [ext_resource type="Texture2D" uid="uid://dsbelsy175q46" path="res://assets/tiles/shadow.png" id="3_flmds"]
 [ext_resource type="PackedScene" uid="uid://b5a20owxyt7xw" path="res://scenes/player.tscn" id="4_hbe2o"]
