@@ -4,7 +4,7 @@ extends Node
 
 signal attack_finished
 
-@export var attacks: Array[BossAttack]
+@export var attacks: Dictionary[String, BossAttack]
 
 @onready var attack_timer: Timer = $AttackTimer
 @onready var host: Boss = owner
@@ -21,14 +21,22 @@ func _ready():
 		print("AVISO DE DEPURACAO: O array 'attacks' do AttackComponent está vazio.")
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
 
-func perform_attack():
+func perform_attack(attack_name:String=""):
 	if attacking or attacks.is_empty(): return
+	
+	
+	if not attack_name.length():
+		current_attack = attacks.values().pick_random()
+	else:
+		current_attack = attacks[attack_name]
+		
 	attacking = true
-	current_attack = attacks.pick_random()
+	
 	if not current_attack:
 		print("ERRO: Tentativa de realizar um ataque nulo.")
 		attacking = false
 		return
+		
 	attack_timer.wait_time = current_attack.attack_duration
 	attack_timer.start()
 	current_attack.execute(host, self)

@@ -24,6 +24,7 @@ func _on_area_entered(area: Area2D):
 	# se já tivermos acertado algo e estivermos no cooldown.
 	if area.owner == source:
 		return
+	print(owner)
 	if area is HurtboxComponent and not collision_shape.disabled:
 		# Chama a função 'take_damage' no Hurtbox.
 		area.take_damage(damage)
