@@ -10,6 +10,8 @@ extends CharacterBody2D
 @export var camera_component: CameraComponent
 @export var audio_component: AudioComponent
 
+@export var health_ui: HealthUI
+
 @export var actual_camera: Camera2D
 @export var game_over_scene: PackedScene
 
@@ -24,6 +26,18 @@ func _ready():
 	$Sprite2D.material.set_shader_parameter('hit_flash_on', false)
 	if hurtbox_component:
 		hurtbox_component.died.connect(_on_died)
+	if health_ui:
+		# 1. Espere o nó da UI emitir o sinal de que está pronto.
+		# Isso pausa a execução aqui até que a UI esteja 100% carregada.
+		await health_ui.ready
+
+		# 2. Agora que temos certeza que a UI está pronta, podemos conectar os sinais.
+		hurtbox_component.health_changed.connect(
+			func(current_hp, max_hp): health_ui.update_hearts(current_hp / 10)
+		)
+		
+		# 3. E agora podemos chamar a função de atualização inicial com segurança.
+		health_ui.update_hearts(hurtbox_component.current_health / 10)
 
 func _physics_process(delta: float) -> void:
 	

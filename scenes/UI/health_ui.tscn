@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1doiupecjyue"]
+
+[ext_resource type="Script" uid="uid://7bauica0wni1" path="res://scripts/health_ui.gd" id="1_4cxe6"]
+[ext_resource type="Texture2D" uid="uid://chp1l1k21luae" path="res://scenes/UI/coracao_cheio_atlas.tres" id="1_55djp"]
+[ext_resource type="Texture2D" uid="uid://chwuaeiwol6k" path="res://scenes/UI/coracao_vazio_atlas.tres" id="3_yui3x"]
+
+[node name="HealthUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_4cxe6")
+heart_full_texture = ExtResource("1_55djp")
+heart_empty_texture = ExtResource("3_yui3x")
+
+[node name="HeartsContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="HeartsContainer"]
+layout_mode = 2
+texture = ExtResource("1_55djp")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="HeartsContainer"]
+layout_mode = 2
+texture = ExtResource("1_55djp")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="HeartsContainer"]
+layout_mode = 2
+texture = ExtResource("1_55djp")
+expand_mode = 2
+stretch_mode = 5
