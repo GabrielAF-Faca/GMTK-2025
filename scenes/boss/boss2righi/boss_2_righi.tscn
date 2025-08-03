@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://bg8tyvu0acior"]
+[gd_scene load_steps=65 format=3 uid="uid://bg8tyvu0acior"]
 
 [ext_resource type="Script" uid="uid://c5xssx5gyumdi" path="res://scenes/boss/boss2righi/boss_2_righi.gd" id="1_4w0k5"]
 [ext_resource type="Texture2D" uid="uid://d2euqklrnbie6" path="res://assets/boss/Sword/Sword.png" id="2_t1fni"]
@@ -341,9 +341,6 @@ metadata/_custom_type_script = "uid://c7tu6khd5njhl"
 [sub_resource type="CircleShape2D" id="CircleShape2D_1jbau"]
 radius = 6.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1fni"]
-size = Vector2(21.4474, 54.426)
-
 [node name="Boss2Righi" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "movement_component", "attack_component", "animation_component", "hurtbox_component", "hitbox_component", "audio_component")]
 collision_layer = 2
 collision_mask = 2
@@ -428,16 +425,10 @@ script = ExtResource("18_y3k7o")
 source = NodePath("..")
 metadata/_custom_type_script = "uid://3ggyea326xtp"
 
-[node name="SwordShape" type="CollisionShape2D" parent="HitboxComponent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(18, 8)
 scale = Vector2(1.16, 1.8804)
 shape = SubResource("CircleShape2D_1jbau")
-disabled = true
-
-[node name="DashShape" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(-0.63221, 9.5)
-scale = Vector2(0.873558, 0.459339)
-shape = SubResource("RectangleShape2D_t1fni")
 disabled = true
 
 [node name="Timer" type="Timer" parent="HitboxComponent"]
