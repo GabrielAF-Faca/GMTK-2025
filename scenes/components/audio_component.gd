@@ -11,7 +11,17 @@ func _ready():
 		add_child(audio_player)
 		audio_player.stream = audios[audio]
 		streams[audio] = audio_player
-		
+	
+func update_audio_position(audio_name:String, position: Vector2):
+	var audio_player = streams[audio_name]
+	audio_player.global_position = position
+	
+func change_audio_volume(audio_name: String, value: float):
+	var audio_player = streams[audio_name]
+	var tween = create_tween()
+	tween.tween_property(audio_player, "volume_db", value, 0.3)
+	tween.play()
+	
 
 func play_audio_stream(audio_name: String, randomize_pitch: Vector2 = Vector2.ZERO):
 	if audio_name not in streams.keys():

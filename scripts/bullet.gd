@@ -22,7 +22,6 @@ var current_state: Bullet_State = Bullet_State.ARMABLE
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var explosion: AnimatedSprite2D = $Explosion
 
-
 # Cores para dar feedback visual de cada estado
 const COLOR_ARMABLE = Color.YELLOW
 const COLOR_ARMED = Color.RED
@@ -40,7 +39,12 @@ func _ready():
 	
 	# Inicia no estado "Ativável"
 	change_state(Bullet_State.SPAWNING)
-	
+	audio_component.play_audio_stream("barulinho")
+	audio_component.change_audio_volume("barulinho", -25)
+
+func _process(delta: float) -> void:
+	audio_component.update_audio_position("barulinho", global_position)
+
 
 # Função pública que o Player irá chamar para ativar a bullet
 func activate():
@@ -68,6 +72,7 @@ func change_state(new_state: Bullet_State):
 			sprite.play("default")
 			hitbox.monitoring = false
 			hitbox_component.call_deferred("deactivate")
+			audio_component.change_audio_volume("barulinho", -15)
 			print("Bullet está ATIVÁVEL")
 		
 		Bullet_State.ARMED:

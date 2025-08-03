@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 	
 	if not attack_component.attacking:
 		# Se não está atacando, lida com o movimento normal.
-		if step_timer.is_stopped() and not is_instance_of(state_machine.current_state, IdleState):
+		if step_timer.is_stopped() and not is_instance_of(state_machine.current_state, IdleState) and state_machine.current_state:
 			step_timer.start()
 		movement_component.handle_movement(self, move_direction)
 		animation_component.handle_move_animation(self, velocity)
