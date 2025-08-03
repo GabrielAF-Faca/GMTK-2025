@@ -20,6 +20,8 @@ var can_roll = true
 
 func _ready():
 	camera_component.camera = actual_camera
+	$Sprite2D.material.set_shader_parameter('hit_flash_on', false)
+
 
 func _physics_process(delta: float) -> void:
 	

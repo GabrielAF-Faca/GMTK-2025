@@ -17,7 +17,6 @@
 [ext_resource type="Script" uid="uid://c7tu6khd5njhl" path="res://scenes/boss/attacks/simple_melee_attack.gd" id="14_mfuaf"]
 [ext_resource type="Script" uid="uid://dhudpk4vopw66" path="res://scenes/boss/attacks/charge_attack.gd" id="15_mfuaf"]
 [ext_resource type="Script" uid="uid://dp3kpbio06gar" path="res://scenes/components/hurtbox_component.gd" id="17_0jbm5"]
-
 [ext_resource type="Script" uid="uid://3ggyea326xtp" path="res://scenes/components/hitbox_component.gd" id="17_viurf"]
 [ext_resource type="PackedScene" uid="uid://o3fduf4ueiv8" path="res://scenes/components/audio_component.tscn" id="21_e7m4g"]
 [ext_resource type="AudioStream" uid="uid://dtxbblof3eb5q" path="res://assets/audios/boss/andando.wav" id="22_5auks"]
@@ -250,14 +249,14 @@ height = 31.0
 
 [sub_resource type="Resource" id="Resource_e7m4g"]
 script = ExtResource("14_mfuaf")
-attack_duration = 1.0
-animation_name = ""
+attack_duration = 3.0
+animation_name = "attack"
 loop_animation = false
 metadata/_custom_type_script = "uid://c7tu6khd5njhl"
 
 [sub_resource type="Resource" id="Resource_uldyp"]
 script = ExtResource("15_mfuaf")
-charge_speed = 800.0
+charge_speed = 600.0
 charge_up_duration = 0.5
 telegraph_animation = "idle"
 charge_animation = "walk"
@@ -266,7 +265,7 @@ stun_animation = "idle"
 knockback_force = 600.0
 knockback_duration = 0.3
 attack_duration = 1.0
-animation_name = ""
+animation_name = "idle"
 loop_animation = false
 metadata/_custom_type_script = "uid://dhudpk4vopw66"
 

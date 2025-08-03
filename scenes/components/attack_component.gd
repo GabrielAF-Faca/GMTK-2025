@@ -89,7 +89,6 @@ func _on_attack_timer_timeout():
 		attacking = false
 		is_charging = false
 		attack_finished.emit()
-		
 
 func finish_attack_manually():
 	if not attacking: return
