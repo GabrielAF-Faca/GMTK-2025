@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://b5a20owxyt7xw"]
+[gd_scene load_steps=70 format=3 uid="uid://b5a20owxyt7xw"]
 
 [ext_resource type="Script" uid="uid://dqbvkgds11omj" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dq3xdtec1oqsm" path="res://assets/player/prototype_character.png" id="2_tuyoq"]
@@ -19,6 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://c0tccbnuumy5b" path="res://assets/audios/player/pode_atirar.wav" id="17_qfm1y"]
 [ext_resource type="AudioStream" uid="uid://bn26x10ld2gs3" path="res://assets/audios/player/canalizando.wav" id="18_fulsm"]
 [ext_resource type="AudioStream" uid="uid://vh7a4ygktpe6" path="res://assets/audios/player/atirando.wav" id="19_4r5pv"]
+[ext_resource type="AudioStream" uid="uid://de3qpr2tu03qt" path="res://assets/audios/player/tiro_bateu.wav" id="20_60mlk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_31cv2"]
 atlas = ExtResource("11_d2wvv")
@@ -531,7 +532,8 @@ audios = Dictionary[String, AudioStream]({
 "casting": ExtResource("18_fulsm"),
 "firing": ExtResource("19_4r5pv"),
 "passos": ExtResource("16_a8ls1"),
-"pode_atirar": ExtResource("17_qfm1y")
+"pode_atirar": ExtResource("17_qfm1y"),
+"tiro_bateu": ExtResource("20_60mlk")
 })
 
 [node name="StepTimer" type="Timer" parent="."]

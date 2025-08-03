@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://028w8q2torkf"]
+[gd_scene load_steps=11 format=3 uid="uid://028w8q2torkf"]
 
 [ext_resource type="Script" uid="uid://ilxusjgaayqb" path="res://scripts/activator_shot.gd" id="1_j05pl"]
 [ext_resource type="Texture2D" uid="uid://chn17kctnjv67" path="res://assets/fx/Projectile 15.png" id="2_j05pl"]
+[ext_resource type="PackedScene" uid="uid://o3fduf4ueiv8" path="res://scenes/components/audio_component.tscn" id="3_soh5w"]
+[ext_resource type="AudioStream" uid="uid://de3qpr2tu03qt" path="res://assets/audios/player/tiro_bateu.wav" id="4_al4j8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_soh5w"]
 atlas = ExtResource("2_j05pl")
@@ -42,10 +44,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_al4j8"]
 radius = 7.0
 
-[node name="ActivatorShot" type="Area2D"]
+[node name="ActivatorShot" type="Area2D" node_paths=PackedStringArray("audio_component")]
 collision_layer = 0
 collision_mask = 16
 script = ExtResource("1_j05pl")
+audio_component = NodePath("AudioComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-5, 1)
@@ -56,3 +59,14 @@ frame_progress = 0.00892062
 shape = SubResource("CircleShape2D_al4j8")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AudioComponent" parent="." instance=ExtResource("3_soh5w")]
+audios = Dictionary[String, AudioStream]({
+"destroy": ExtResource("4_al4j8")
+})
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

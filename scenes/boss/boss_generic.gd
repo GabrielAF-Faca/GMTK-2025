@@ -7,11 +7,13 @@ extends CharacterBody2D
 @export var animation_component: AnimationComponent
 @export var hurtbox_component: HurtboxComponent
 @export var hitbox_component: HitboxComponent
-@export var player: CharacterBody2D
+@export var audio_component: AudioComponent
 
+@export var player: CharacterBody2D
 @export var standing_points: Node2D
 
 @onready var stun_timer: Timer = $StunTimer
+@onready var step_timer: Timer = $StepTimer
 
 # --- VARIÁVEIS DE MOVIMENTO ---
 var move_direction: Vector2 = Vector2.ZERO
@@ -24,6 +26,7 @@ var move_direction: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	stun_timer.timeout.connect(_on_stun_timer_timeout)
+	#step_timer.timeout.connect(_on_step_timer_timeout)
 	if hurtbox_component:
 		hurtbox_component.died.connect(_on_died)
 
@@ -37,8 +40,11 @@ func _physics_process(delta: float) -> void:
 	
 	if not attack_component.attacking:
 		# Se não está atacando, lida com o movimento normal.
+		if step_timer.is_stopped() and not is_instance_of(state_machine.current_state, IdleState):
+			step_timer.start()
 		movement_component.handle_movement(self, move_direction)
 		animation_component.handle_move_animation(self, velocity)
+		
 	else:
 		# Se está atacando, verifica se é um charge attack.
 		if attack_component.current_attack is ChargeAttack:
@@ -59,3 +65,6 @@ func _on_stun_timer_timeout():
 # Função para os ataques obterem a referência do player.
 func get_player_reference() -> CharacterBody2D:
 	return player
+
+func _on_step_timer_timeout() -> void:
+	audio_component.play_audio_stream("andando")

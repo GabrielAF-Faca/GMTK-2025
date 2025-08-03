@@ -24,7 +24,7 @@ func play_audio_stream(audio_name: String, randomize_pitch: Vector2 = Vector2.ZE
 		
 	if randomize_pitch != Vector2.ZERO:
 		audio_player.pitch_scale = Global.rng.randf_range(randomize_pitch.x, randomize_pitch.y)
-	
+
 	audio_player.play()
 
 func stop_audio_stream(audio_name: String):
