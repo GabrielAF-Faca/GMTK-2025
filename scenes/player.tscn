@@ -1,6 +1,7 @@
-[gd_scene load_steps=76 format=3 uid="uid://b5a20owxyt7xw"]
+[gd_scene load_steps=77 format=3 uid="uid://b5a20owxyt7xw"]
 
 [ext_resource type="Script" uid="uid://dqbvkgds11omj" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://cnrl2id7jgohs" path="res://scenes/UI/defeat.tscn" id="2_a38lo"]
 [ext_resource type="Texture2D" uid="uid://dq3xdtec1oqsm" path="res://assets/player/prototype_character.png" id="2_tuyoq"]
 [ext_resource type="PackedScene" uid="uid://cbiigovafycyr" path="res://scenes/components/input_component.tscn" id="3_dqkch"]
 [ext_resource type="PackedScene" uid="uid://baclhg3vo55mk" path="res://scenes/components/movement_component.tscn" id="4_qlg0r"]
@@ -498,6 +499,7 @@ activate_bullet_component = NodePath("ActivateBulletComponent")
 hurtbox_component = NodePath("HurtBox")
 camera_component = NodePath("CameraComponent")
 audio_component = NodePath("AudioComponent")
+game_over_scene = ExtResource("2_a38lo")
 
 [node name="Aura" type="AnimatedSprite2D" parent="."]
 visible = false
