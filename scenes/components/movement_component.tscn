@@ -4,3 +4,6 @@
 
 [node name="MovementComponent" type="Node"]
 script = ExtResource("1_ayfyp")
+
+[node name="KnockbackTimer" type="Timer" parent="."]
+one_shot = true

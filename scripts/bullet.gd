@@ -6,7 +6,7 @@ extends Node2D
 @export_group("Bullet Settings")
 @export var armed_duration: float = 0.5   # Duração do estado "Ativada" (em segundos)
 @export var cooldown_duration: float = 3.0 # Duração do estado "Desativada" (em segundos)
-
+@export var hitbox_component: HitboxComponent
 # Define os 3 estados possíveis da bullet usando um enum
 enum Bullet_State { ARMABLE, ARMED, COOLDOWN, SPAWNING}
 
@@ -38,9 +38,6 @@ func _ready():
 	# Inicia no estado "Ativável"
 	change_state(Bullet_State.SPAWNING)
 	
-	# --- CORREÇÃO ---
-	# Conecta o sinal de colisão da hitbox à função correta
-	hitbox.area_entered.connect(_on_hitbox_area_entered)
 
 # Função pública que o Player irá chamar para ativar a bullet
 func activate():
@@ -66,6 +63,7 @@ func change_state(new_state: Bullet_State):
 			tween.play()
 			sprite.play("default")
 			hitbox.monitoring = false
+			hitbox_component.deactivate()
 			print("Bullet está ATIVÁVEL")
 		
 		Bullet_State.ARMED:
@@ -75,6 +73,7 @@ func change_state(new_state: Bullet_State):
 			explosion.frame = 0
 			explosion.scale = Vector2(0.5, 0.5)
 			explosion.modulate = Color(1.0, 1.0, 1.0)
+			hitbox_component.activate()
 			
 			var tween = get_tree().create_tween()
 			tween.tween_property(explosion, "scale", Vector2(12, 11.7), 0.4)
@@ -97,6 +96,7 @@ func change_state(new_state: Bullet_State):
 		Bullet_State.COOLDOWN:
 			#sprite.modulate = COLOR_COOLDOWN
 			hitbox.monitoring = false
+			hitbox_component.deactivate()
 			cooldown_timer.start()
 			print("Bullet em COOLDOWN")
 
@@ -107,18 +107,3 @@ func _on_armed_timer_timeout():
 # Chamado quando o tempo de "Cooldown" acaba
 func _on_cooldown_timer_timeout():
 	change_state(Bullet_State.ARMABLE)
-
-# --- CORREÇÃO ---
-# Função para quando a bullet atingir a Hurtbox do inimigo
-func _on_hitbox_area_entered(area: Area2D):
-	# A hitbox só está ativa no estado ARMED
-	
-	# Pega o nó pai da área atingida (o próprio Boss_Golem)
-	var parent_body = area.get_parent()
-	
-	# Verifica se o corpo atingido tem um BossComponent
-	if parent_body.has_node("BossComponent"):
-		print("Pog")
-		#var boss_component = parent_body.get_node("BossComponent") as BossComponent
-		# Chama a função no BossComponent para ele lidar com o dano
-		#boss_component.handle_bullet_hit()
