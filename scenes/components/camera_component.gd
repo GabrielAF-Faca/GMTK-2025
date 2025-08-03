@@ -1,6 +1,12 @@
 class_name CameraComponent
 extends Node
 
+@export var camera_inicial: Camera2D
+@export var camera_transicao: Camera2D
+@export var camera_final: Camera2D
+
+@export var player: CharacterBody2D
+
 var camera: Camera2D
 
 var shake_intensity: float = 0.0
@@ -34,3 +40,28 @@ func screen_shake(intensity: int, time: float):
 	shake_intensity = intensity
 	active_shake_time = time
 	shake_time = 0.0
+
+var transition_tween: Tween
+var transition_zoom_tween: Tween
+var transition_offset_tween: Tween
+
+func _change_camera(desired_camera: Camera2D) -> void:
+	if transition_tween:
+		transition_tween.kill()
+	
+	transition_tween = create_tween()
+	var target_transform: Transform2D = desired_camera.global_transform
+	transition_tween.tween_property(camera_transicao, "global_transform", target_transform, 0.5)
+	transition_tween.set_trans(Tween.TRANS_SINE)
+	
+	transition_zoom_tween = create_tween()
+	var target_zoom: Vector2 = desired_camera.zoom
+	transition_zoom_tween.tween_property(camera_transicao, "zoom", target_zoom, 0.5)
+	transition_zoom_tween.set_trans(Tween.TRANS_SINE)
+	
+	transition_offset_tween = create_tween()
+	var target_offset: Vector2 = desired_camera.offset
+	transition_offset_tween.tween_property(camera_transicao, "offset", target_transform, 0.5)
+	transition_offset_tween.set_trans(Tween.TRANS_SINE)
+	
+	camera_inicial = desired_camera

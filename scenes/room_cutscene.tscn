@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxo6k3p6y0hlb"]
+
+[ext_resource type="Script" uid="uid://cwld7c3vunq5" path="res://scripts/room_cutscene.gd" id="1_d4tmy"]
+
+[node name="RoomCutscene" type="AnimationPlayer"]
+script = ExtResource("1_d4tmy")
+
+[node name="CameraInicial" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="CameraTransicao" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="CameraFinal" type="Camera2D" parent="."]

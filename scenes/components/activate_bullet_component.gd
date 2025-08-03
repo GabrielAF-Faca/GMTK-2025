@@ -18,6 +18,8 @@ extends Node
 var can_fire: bool = true
 var is_charging: bool = false
 var fire: bool = false
+var tween: Tween
+var pode_barulhinho: bool = true
 
 func _ready():
 	player_animation_player.animation_finished.connect(_on_animation_finished)
@@ -29,10 +31,19 @@ func reset_tiro_sprite():
 	tiro_sprite.modulate = Color(1.0, 1.0, 1.0, 0.0)
 	tiro_sprite.scale = Vector2(0,0)
 	tiro_sprite.stop()
+	pode_barulhinho = true
 
 func show_tiro_fake():
+	
+	if pode_barulhinho:
+		pode_barulhinho = false
+		owner_player.audio_component.play_audio_stream("pode_atirar")
+	
+	if tween and tween.is_running():
+		tween.kill()
+	
 	tiro_sprite.visible = true
-	var tween = get_tree().create_tween()
+	tween = create_tween()
 	tween.tween_property(tiro_sprite, "modulate", Color(1.0, 1.0, 1.0), 0.1)
 	tween.set_parallel(true)
 	tween.tween_property(tiro_sprite, "scale", Vector2(1, 1), 0.1)
@@ -45,7 +56,6 @@ func _process(_delta):
 	if fire and input_component.activate_bullet_released:
 		is_charging = false
 		fire = false
-		reset_tiro_sprite()
 		fire_activator_shot()
 		cooldown_timer.start(cooldown_time)
 	
@@ -64,6 +74,7 @@ func _process(_delta):
 	# Se a ação for pressionada, o jogador puder atirar e não estiver já carregando...
 	if input_component.activate_bullet_pressed and can_fire and not is_charging:
 		is_charging = true
+		owner_player.audio_component.play_audio_stream("casting")
 		animation_component.handle_charge_shot_animation()
 
 # Chamado quando a animação de carregar TERMINA (o jogador não cancelou)
@@ -77,12 +88,17 @@ func _on_animation_finished(anim_name):
 # --- NEW FUNCTION ---
 # Cancela o carregamento do tiro
 func cancel_charge():
+	owner_player.audio_component.stop_audio_stream("casting")
 	is_charging = false
 	# Para a animação e a reseta para o início.
 	# O script do Player vai tratar de voltar para a animação de "parado".
 	player_animation_player.stop(true)
 
 func fire_activator_shot():
+	owner_player.audio_component.stop_audio_stream("casting")
+	owner_player.audio_component.play_audio_stream("firing")
+	
+	reset_tiro_sprite()
 	var bullet_instance = TowerManager.get_bullet_instance()
 	if not is_instance_valid(bullet_instance):
 		return

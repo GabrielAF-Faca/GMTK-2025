@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://c7tu6khd5njhl" path="res://scenes/boss/attacks/simple_melee_attack.gd" id="14_mfuaf"]
 [ext_resource type="Script" uid="uid://dhudpk4vopw66" path="res://scenes/boss/attacks/charge_attack.gd" id="15_mfuaf"]
 [ext_resource type="Script" uid="uid://dp3kpbio06gar" path="res://scenes/components/hurtbox_component.gd" id="17_0jbm5"]
-[ext_resource type="Script" uid="uid://duxx8ushrp8qk" path="res://scenes/boss/attacks/shockwave_attack.gd" id="17_0mjfd"]
+[ext_resource type="Script" path="res://scenes/boss/attacks/shockwave_attack.gd" id="17_0mjfd"]
 [ext_resource type="Script" uid="uid://3ggyea326xtp" path="res://scenes/components/hitbox_component.gd" id="17_viurf"]
 [ext_resource type="PackedScene" uid="uid://dvoimdxejfi10" path="res://scenes/boss/attacks/shockwave.tscn" id="18_e7m4g"]
 

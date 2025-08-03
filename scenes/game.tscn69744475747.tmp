@@ -615,7 +615,7 @@ tile_set = SubResource("TileSet_iywne")
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." node_paths=PackedStringArray("actual_camera") instance=ExtResource("2_yqjtg")]
-position = Vector2(433, 290)
+position = Vector2(432, 290)
 actual_camera = NodePath("../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="."]

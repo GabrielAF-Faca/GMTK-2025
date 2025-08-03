@@ -7,12 +7,14 @@ extends CharacterBody2D
 @export var roll_component: RollComponent
 @export var activate_bullet_component: ActivateBulletComponent
 @export var hurtbox_component: HurtboxComponent
-@export var actual_camera: Camera2D
-
 @export var camera_component: CameraComponent
+@export var audio_component: AudioComponent
+
+@export var actual_camera: Camera2D
 
 @onready var roll_timer: Timer = $RollTimer
 @onready var ghost_timer: Timer = $GhostTimer
+@onready var step_timer: Timer = $StepTimer
 
 var can_roll = true
 
@@ -59,6 +61,11 @@ func _physics_process(delta: float) -> void:
 		set_collision_layer_value(9, true)
 		
 		# Se não rolou, executa o movimento normal
+		
+		if input_component.direction != Vector2.ZERO:
+			if step_timer.is_stopped():
+				step_timer.start()
+		
 		movement_component.handle_movement(self, input_component.direction)
 		animation_component.handle_move_animation(self, input_component.direction)
 
@@ -69,3 +76,7 @@ func _on_roll_timer_timeout() -> void:
 
 func _on_ghost_timer_timeout() -> void:
 	animation_component.add_ghost(self, input_component.direction)
+
+
+func _on_step_timer_timeout() -> void:
+	audio_component.play_audio_stream("passos", Vector2(0.8, 1.2))
