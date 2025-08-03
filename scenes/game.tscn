@@ -613,7 +613,7 @@ tile_set = SubResource("TileSet_iywne")
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("2_yqjtg")]
-position = Vector2(430, 290)
+position = Vector2(432, 290)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(339, 177)

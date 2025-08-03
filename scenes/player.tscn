@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://b5a20owxyt7xw"]
+[gd_scene load_steps=57 format=3 uid="uid://b5a20owxyt7xw"]
 
 [ext_resource type="Script" uid="uid://dqbvkgds11omj" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dq3xdtec1oqsm" path="res://assets/player/prototype_character.png" id="2_tuyoq"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dc1bbwqbk7x3e" path="res://scenes/components/activate_bullet_component.tscn" id="9_ur7pv"]
 [ext_resource type="PackedScene" uid="uid://028w8q2torkf" path="res://scenes/activator_shot.tscn" id="10_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://doycg8ka83kmy" path="res://assets/fx/Holy Light Aura.png" id="11_d2wvv"]
+[ext_resource type="Script" uid="uid://dp3kpbio06gar" path="res://scenes/components/hurtbox_component.gd" id="12_3v2ag"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_31cv2"]
 atlas = ExtResource("11_d2wvv")
@@ -392,13 +393,15 @@ radius = 22.0
 radius = 3.0
 height = 12.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "movement_component", "animation_component", "roll_component", "activate_bullet_component")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "movement_component", "animation_component", "roll_component", "activate_bullet_component", "hurtbox_component") groups=["player"]]
+collision_layer = 257
 script = ExtResource("1_g2els")
 input_component = NodePath("InputComponent")
 movement_component = NodePath("MovementComponent")
 animation_component = NodePath("AnimationComponent")
 roll_component = NodePath("RollComponent")
 activate_bullet_component = NodePath("ActivateBulletComponent")
+hurtbox_component = NodePath("HurtBox")
 
 [node name="Aura" type="AnimatedSprite2D" parent="."]
 show_behind_parent = true
@@ -435,7 +438,7 @@ animation_player = NodePath("../Sprite2D/AnimationPlayer")
 shot_aura_animation = NodePath("../Aura")
 
 [node name="RollComponent" parent="." instance=ExtResource("6_tuyoq")]
-dodge_speed = 230.0
+dodge_speed = 250.0
 
 [node name="TowerPlacementComponent" parent="." instance=ExtResource("7_fjrip")]
 tower_scene = ExtResource("8_smehm")
@@ -457,9 +460,13 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("CircleShape2D_tuyoq")
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("12_3v2ag")
+metadata/_custom_type_script = "uid://dp3kpbio06gar"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_d2wvv")
 
