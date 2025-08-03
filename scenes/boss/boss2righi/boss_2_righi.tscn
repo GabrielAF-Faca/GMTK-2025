@@ -1,6 +1,7 @@
-[gd_scene load_steps=76 format=3 uid="uid://bg8tyvu0acior"]
+[gd_scene load_steps=77 format=3 uid="uid://bg8tyvu0acior"]
 
 [ext_resource type="Script" uid="uid://c5xssx5gyumdi" path="res://scenes/boss/boss2righi/boss_2_righi.gd" id="1_4w0k5"]
+[ext_resource type="PackedScene" uid="uid://qaahx4mwksuy" path="res://scenes/UI/win.tscn" id="2_43ne0"]
 [ext_resource type="Texture2D" uid="uid://d2euqklrnbie6" path="res://assets/boss/Sword/Sword.png" id="2_t1fni"]
 [ext_resource type="PackedScene" uid="uid://baclhg3vo55mk" path="res://scenes/components/movement_component.tscn" id="3_lsl42"]
 [ext_resource type="PackedScene" uid="uid://cpkrw4j71aisv" path="res://scenes/state machine/state_machine.tscn" id="4_43ne0"]
@@ -448,6 +449,7 @@ animation_component = NodePath("AnimationComponentTwoSides")
 hurtbox_component = NodePath("HurtBox")
 hitbox_component = NodePath("HitboxComponent")
 audio_component = NodePath("AudioComponent")
+win_scene = ExtResource("2_43ne0")
 metadata/_custom_type_script = "uid://d1x70vimatv0h"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

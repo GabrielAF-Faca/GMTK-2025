@@ -18,12 +18,16 @@ extends CharacterBody2D
 
 # --- VARIÁVEIS DE MOVIMENTO ---
 var move_direction: Vector2 = Vector2.ZERO
+
 # -----------------------------
+@export var win_scene: PackedScene
+#signal change_scene_requested(scene_to_load: PackedScene)
 
 # --- VARIÁVEIS DE ATAQUE FORAM REMOVIDAS DAQUI ---
 # A lógica de 'is_charging', 'charge_direction' e 'charge_speed'
 # foi movida para o AttackComponent.
 # -------------------------------------------------
+
 
 func _ready() -> void:
 	stun_timer.timeout.connect(_on_stun_timer_timeout)
@@ -40,6 +44,12 @@ func _on_died():
 	# Aqui você pode parar a máquina de estados, tocar uma animação de morte, etc.
 	animated_sprite.play("die")
 	await  animated_sprite.animation_finished
+	var torres = get_tree().get_nodes_in_group("Torres")
+	if torres:
+		for torre in torres:
+			TowerManager.unregister_tower(torre)
+	#change_scene_requested.emit(win_scene)
+	get_tree().change_scene_to_packed(win_scene)
 	queue_free() # Exemplo: remove o boss da cena.
 
 func _physics_process(delta: float) -> void:

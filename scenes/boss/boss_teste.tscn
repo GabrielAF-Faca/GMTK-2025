@@ -427,6 +427,7 @@ animation_component = NodePath("AnimationComponentTwoSides")
 hurtbox_component = NodePath("HurtBox")
 hitbox_component = NodePath("HitboxComponent")
 audio_component = NodePath("AudioComponent")
+win_scene = ExtResource("2_5auks")
 metadata/_custom_type_script = "uid://d1x70vimatv0h"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
