@@ -27,16 +27,16 @@ func enter():
 # Esta função agora controla o movimento do boss DURANTE um ataque.
 # Para funcionar, a linha 'current_state.physics_update(delta)'
 # deve estar ativa no _physics_process do seu StateMachine.
-func physics_update(_delta: float):
-	if not host or not host.attack_component:
-		return
-
-	if host.attack_component.is_charging:
-		# Se estiver no meio de um dash, aplica a velocidade de charge.
-		host.velocity = host.attack_component.charge_direction * host.attack_component.charge_speed
-	else:
-		# Para ataques melee ou na preparação do dash, o boss fica parado.
-		host.velocity = Vector2.ZERO
+#func physics_update(_delta: float):
+	#if not host or not host.attack_component:
+		#return
+#
+	#if host.attack_component.is_charging:
+		## Se estiver no meio de um dash, aplica a velocidade de charge.
+		#host.velocity = host.attack_component.charge_direction * host.attack_component.charge_speed
+	#else:
+		## Para ataques melee ou na preparação do dash, o boss fica parado.
+		#host.velocity = Vector2.ZERO
 
 func choose_attack():
 	var player = host.get_player_reference()
@@ -47,12 +47,12 @@ func choose_attack():
 	var distance_to_player = host.global_position.distance_to(player.global_position)
 	
 	if distance_to_player < melee_range:
-		host.attack_component.perform_attack_by_type("SimpleMeleeAttack")
+		host.attack_component.perform_attack("SimpleMeleeAttack")
 	elif distance_to_player > dash_min_range:
-		host.attack_component.perform_attack_by_type("DashAttack")
+		host.attack_component.perform_attack("DashAttack")
 	else:
 		# Como padrão, usa o ataque melee se estiver em distância intermediária.
-		host.attack_component.perform_attack_by_type("SimpleMeleeAttack")
+		host.attack_component.perform_attack("SimpleMeleeAttack")
 
 func _on_attack_finished():
 	state_machine.change_state("idle")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://bg8tyvu0acior"]
+[gd_scene load_steps=66 format=3 uid="uid://bg8tyvu0acior"]
 
 [ext_resource type="Script" uid="uid://c5xssx5gyumdi" path="res://scenes/boss/boss2righi/boss_2_righi.gd" id="1_4w0k5"]
 [ext_resource type="Texture2D" uid="uid://d2euqklrnbie6" path="res://assets/boss/Sword/Sword.png" id="2_t1fni"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://c7tu6khd5njhl" path="res://scenes/boss/attacks/simple_melee_attack.gd" id="15_7pu68"]
 [ext_resource type="Script" uid="uid://dp3kpbio06gar" path="res://scenes/components/hurtbox_component.gd" id="17_7e2wc"]
 [ext_resource type="Script" uid="uid://3ggyea326xtp" path="res://scenes/components/hitbox_component.gd" id="18_y3k7o"]
+[ext_resource type="PackedScene" uid="uid://o3fduf4ueiv8" path="res://scenes/components/audio_component.tscn" id="20_lsl42"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ivb3"]
 atlas = ExtResource("2_t1fni")
@@ -317,33 +318,33 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1gbsp"]
 size = Vector2(15.5, 9)
 
-[sub_resource type="Resource" id="Resource_4w0k5"]
+[sub_resource type="Resource" id="Resource_lsl42"]
 script = ExtResource("15_3jlvs")
-dash_speed = 200.0
+dash_speed = 900.0
 telegraph_duration = 0.6
-telegraph_animation = "dash_attack"
-dash_animation = "attack2"
-attack_duration = 1.5
-animation_name = ""
+telegraph_animation = "idle"
+dash_animation = "dash_attack"
+attack_duration = 1.0
+animation_name = "dash_attack"
 loop_animation = false
 metadata/_custom_type_script = "uid://c1euwavggrtjd"
 
 [sub_resource type="Resource" id="Resource_t1fni"]
 script = ExtResource("15_7pu68")
-attack_duration = 1.5
+attack_duration = 1.0
 animation_name = "attack"
 loop_animation = false
 metadata/_custom_type_script = "uid://c7tu6khd5njhl"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkwek"]
-size = Vector2(19, 27)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lsl42"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1jbau"]
 radius = 6.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t1fni"]
+size = Vector2(21.4474, 54.426)
 
-[node name="Boss2Righi" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "movement_component", "attack_component", "animation_component", "hurtbox_component", "hitbox_component")]
+[node name="Boss2Righi" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "movement_component", "attack_component", "animation_component", "hurtbox_component", "hitbox_component", "audio_component")]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_4w0k5")
@@ -353,6 +354,7 @@ attack_component = NodePath("AttackComponent")
 animation_component = NodePath("AnimationComponentTwoSides")
 hurtbox_component = NodePath("HurtBox")
 hitbox_component = NodePath("HitboxComponent")
+audio_component = NodePath("AudioComponent")
 metadata/_custom_type_script = "uid://d1x70vimatv0h"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -399,7 +401,10 @@ sprite = NodePath("../AnimatedSprite2D")
 ghost_node = ExtResource("12_tn0vi")
 
 [node name="AttackComponent" parent="." instance=ExtResource("13_3xmre")]
-attacks = Array[ExtResource("14_bni8j")]([SubResource("Resource_4w0k5"), SubResource("Resource_t1fni")])
+attacks = Dictionary[String, ExtResource("14_bni8j")]({
+"DashAttack": SubResource("Resource_lsl42"),
+"SimpleMeleeAttack": SubResource("Resource_t1fni")
+})
 
 [node name="StunTimer" type="Timer" parent="."]
 one_shot = true
@@ -413,7 +418,7 @@ metadata/_custom_type_script = "uid://dp3kpbio06gar"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(-0.5, 6.5)
-shape = SubResource("RectangleShape2D_rkwek")
+shape = SubResource("RectangleShape2D_lsl42")
 
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("source")]
 position = Vector2(-1, -17)
@@ -427,11 +432,17 @@ metadata/_custom_type_script = "uid://3ggyea326xtp"
 position = Vector2(18, 8)
 scale = Vector2(1.16, 1.8804)
 shape = SubResource("CircleShape2D_1jbau")
+disabled = true
 
 [node name="DashShape" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(-2, 11)
+position = Vector2(-0.63221, 9.5)
 scale = Vector2(0.873558, 0.459339)
 shape = SubResource("RectangleShape2D_t1fni")
+disabled = true
 
 [node name="Timer" type="Timer" parent="HitboxComponent"]
 one_shot = true
+
+[node name="StepTimer" type="Timer" parent="."]
+
+[node name="AudioComponent" parent="." instance=ExtResource("20_lsl42")]
