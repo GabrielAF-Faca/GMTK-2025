@@ -6,6 +6,10 @@ signal change_scene_requested(scene_to_load: PackedScene)
 
 func _on_quit_button_pressed() -> void:
 	get_tree().paused = false
+	var torres = get_tree().get_nodes_in_group("Torres")
+	if torres:
+		for torre in torres:
+			TowerManager.unregister_tower(torre)
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _on_resume_button_pressed() -> void:

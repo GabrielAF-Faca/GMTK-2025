@@ -20,7 +20,9 @@ config/icon="res://icon.svg"
 TowerManager="*res://scripts/tower_manager.gd"
 Global="*res://scripts/global.gd"
 PauseManager="*res://scenes/pause_manager.tscn"
+
 SoundManager="*res://scripts/sound_manager.gd"
+
 
 [display]
 
