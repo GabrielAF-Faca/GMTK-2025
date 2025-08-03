@@ -14,6 +14,7 @@ extends CharacterBody2D
 
 @onready var stun_timer: Timer = $StunTimer
 @onready var step_timer: Timer = $StepTimer
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 # --- VARIÁVEIS DE MOVIMENTO ---
 var move_direction: Vector2 = Vector2.ZERO
@@ -32,8 +33,12 @@ func _ready() -> void:
 
 func _on_died():
 	print("%s morreu!" % self.name)
+	set_physics_process(false) # Para o loop de física deste script.
+	state_machine.set_process(false) # Para a máquina de estados.
+	attack_component.finish_attack_manually() # Cancela qualquer ataque em andamento.
 	# Aqui você pode parar a máquina de estados, tocar uma animação de morte, etc.
-	state_machine.set_process(false) # Para a máquina de estados
+	animated_sprite.play("die")
+	await  animated_sprite.animation_finished
 	queue_free() # Exemplo: remove o boss da cena.
 
 func _physics_process(delta: float) -> void:
