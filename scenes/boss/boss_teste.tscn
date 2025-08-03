@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bpsqrsxqrjjpo"]
+[gd_scene load_steps=54 format=3 uid="uid://bpsqrsxqrjjpo"]
 
 [ext_resource type="Script" uid="uid://bsqjdxmro16xx" path="res://scenes/boss/boss_teste.gd" id="1_6g1fd"]
 [ext_resource type="Texture2D" uid="uid://cpltuq8lmxrge" path="res://assets/boss/Golem/Golem_1_attack.png" id="2_m53ex"]
@@ -17,9 +17,7 @@
 [ext_resource type="Script" uid="uid://c7tu6khd5njhl" path="res://scenes/boss/attacks/simple_melee_attack.gd" id="14_mfuaf"]
 [ext_resource type="Script" uid="uid://dhudpk4vopw66" path="res://scenes/boss/attacks/charge_attack.gd" id="15_mfuaf"]
 [ext_resource type="Script" uid="uid://dp3kpbio06gar" path="res://scenes/components/hurtbox_component.gd" id="17_0jbm5"]
-[ext_resource type="Script" uid="uid://c3th6ygl5r2vb" path="res://scenes/boss/attacks/shockwave_attack.gd" id="17_pctu8"]
 [ext_resource type="Script" uid="uid://3ggyea326xtp" path="res://scenes/components/hitbox_component.gd" id="17_viurf"]
-[ext_resource type="PackedScene" uid="uid://dsv34djjha06s" path="res://scenes/boss/attacks/shockwave.tscn" id="18_0mjfd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ll7h"]
 atlas = ExtResource("2_m53ex")
@@ -267,17 +265,6 @@ animation_name = ""
 loop_animation = false
 metadata/_custom_type_script = "uid://dhudpk4vopw66"
 
-[sub_resource type="Resource" id="Resource_0mjfd"]
-script = ExtResource("17_pctu8")
-shockwave_scene = ExtResource("18_0mjfd")
-expansion_speed = 600.0
-initial_scale = 0.1
-shockwave_lifetime = 2.0
-attack_duration = 1.0
-animation_name = ""
-loop_animation = false
-metadata/_custom_type_script = "uid://c3th6ygl5r2vb"
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_viurf"]
 size = Vector2(39, 38)
 
@@ -334,7 +321,7 @@ sprite = NodePath("../AnimatedSprite2D")
 ghost_node = ExtResource("12_lynih")
 
 [node name="AttackComponent" parent="." instance=ExtResource("12_pme8w")]
-attacks = Array[ExtResource("13_n6wk3")]([SubResource("Resource_lynih"), SubResource("Resource_viurf"), SubResource("Resource_0mjfd")])
+attacks = Array[ExtResource("13_n6wk3")]([SubResource("Resource_lynih"), SubResource("Resource_viurf")])
 
 [node name="StunTimer" type="Timer" parent="."]
 one_shot = true
@@ -350,11 +337,12 @@ metadata/_custom_type_script = "uid://dp3kpbio06gar"
 position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_viurf")
 
-[node name="HitboxComponent" type="Area2D" parent="."]
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("source")]
 position = Vector2(-1, -17)
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("17_viurf")
+source = NodePath("..")
 metadata/_custom_type_script = "uid://3ggyea326xtp"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
